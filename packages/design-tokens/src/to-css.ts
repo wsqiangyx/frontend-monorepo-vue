@@ -33,6 +33,7 @@ type TokenRecord = Readonly<Record<string, TokenValue>>
  */
 function toKebabCase(value: string): string {
   return value
+    .replace(/\./g, '-')
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2') // camelCase 边界插入连字符
     .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2') // 处理连续大写字母（如 XMLHttp → xml-http）
     .toLowerCase()

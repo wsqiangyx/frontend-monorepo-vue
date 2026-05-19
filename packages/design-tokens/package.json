@@ -10,6 +10,9 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./tokens.css": {
+      "default": "./dist/tokens.css"
+    },
     "./css": {
       "types": "./dist/to-css.d.ts",
       "default": "./dist/to-css.js"
@@ -17,10 +20,14 @@
     "./tdesign-theme": {
       "types": "./dist/theme/tdesign.d.ts",
       "default": "./dist/theme/tdesign.js"
+    },
+    "./uno-preset": {
+      "types": "./dist/uno-preset.d.ts",
+      "default": "./dist/uno-preset.js"
     }
   },
   "scripts": {
-    "build": "node -e \"import{rmSync}from'node:fs';rmSync('dist',{recursive:true,force:true});rmSync('tsconfig.build.tsbuildinfo',{force:true});\" && tsc -p tsconfig.build.json",
+    "build": "node -e \"import{rmSync}from'node:fs';rmSync('dist',{recursive:true,force:true});rmSync('tsconfig.build.tsbuildinfo',{force:true});\" && tsc -p tsconfig.build.json && node -e \"import{cpSync,mkdirSync}from'node:fs';mkdirSync('dist',{recursive:true});cpSync('src/tokens.css','dist/tokens.css');\"",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "node ../../scripts/vitest.cjs run",
     "test:watch": "node ../../scripts/vitest.cjs",

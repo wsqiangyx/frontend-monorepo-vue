@@ -20,8 +20,8 @@
 - `packages/shared-i18n`：国际化运行时与语言包（vue-i18n）
 - `packages/shared-service`：服务层（API 封装、Token 管理、权限判断、Mock）
 - `packages/design-tokens`：设计令牌（CSS 变量、TDesign 主题适配、UnoCSS 预设）
-- `packages/shared-ui`：Vue3 UI 组件、图表组件、布局 Hooks
-- `packages/shared-workflow`：工作流引擎
+- `packages/shared-ui`：Vue3 UI 组件封装
+- `packages/shared-workflow`：工作流引擎基础契约
 
 ## 当前架构
 
@@ -91,9 +91,9 @@ vue-admin-monorepo/
 
 ## 关键运行时约束
 
-- 启动链：环境校验 → Mock → tokens.css → i18n → Router/Store → 挂载
-- `shared-service/mock-setup` 仅限开发/测试环境引入
-- `design-tokens` 导出 TDesign CSS 变量契约
+- 启动链（当前已落地）：环境校验 → 开发态 Mock → design tokens 注入 → i18n → Router/Pinia → 挂载
+- 开发态 Mock 统一通过 `@repo/shared-service/mock/browser` 引入
+- `design-tokens` 正式导出 `./tokens.css`、`./tdesign-theme`、`./uno-preset`
 - `shared-i18n` 使用 vue-i18n，通过 `t-config-provider` 联动
 - package `exports` 继续只指向 `dist/`
 

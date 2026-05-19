@@ -3,7 +3,7 @@
 > 制定日期：2026-05-15
 > 适用阶段：Phase 0
 > 文档性质：基础能力阶段详细设计
-> 上游设计：`docs/总体设计/项目总体设计方案.md`
+> 上游设计：`docs/总体设计/Vue3 中后台前端平台 Monorepo 架构设计方案.md`
 
 ## 1. 文档定位
 
@@ -85,7 +85,7 @@ packages/
 
 - 根 `README.md`：模板消费者入口
 - 根 `AGENTS.md`：维护约束入口
-- `docs/总体设计/项目总体设计方案.md`：唯一上游概要设计
+- `docs/总体设计/Vue3 中后台前端平台 Monorepo 架构设计方案.md`：唯一上游概要设计
 - `docs/专题文档/README.md`：专题索引
 - `docs/教程/README.md`：教程索引
 - `docs/规范/README.md`：规范索引

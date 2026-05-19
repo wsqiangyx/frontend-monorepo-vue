@@ -6,11 +6,17 @@ import { fileURLToPath } from 'node:url'
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const stdout = globalThis.console
 
-const appContracts = []
+const appContracts = [
+  {
+    name: 'vue3-app',
+    pathsConfigPath: 'apps/vue3-app/paths.config.ts',
+    tsconfigPath: 'apps/vue3-app/tsconfig.app.json',
+  },
+]
 
 export function extractAliasEntriesFromText(text) {
   const aliasEntryPattern =
-    /find:\s*'(@repo\/[^']+)'\s*,[\s\S]*?new URL\('([^']+)',\s*import\.meta\.url\)/g
+    /'(@repo\/[^']+)'\s*:\s*resolve\(rootDir,\s*'([^']+)'\s*\)/g
   const aliasEntries = []
 
   for (const match of text.matchAll(aliasEntryPattern)) {
@@ -23,23 +29,21 @@ export function extractAliasEntriesFromText(text) {
   return aliasEntries
 }
 
-export function createAliasContractExpectation(aliasEntries) {
+export function createAliasContractExpectation(aliasEntries, appDir) {
   return Object.fromEntries(
     aliasEntries.flatMap(({ find, target }) => {
-      if (find === '@repo/resources' && target.endsWith('/src')) {
-        return [
-          [find, [normalizeRelativePath(`${target}/index.ts`)]],
-          [`${find}/*`, [normalizeRelativePath(`${target}/*/index.ts`)]],
-        ]
-      }
+      const relativeTarget = normalizeRelativePath(relative(appDir, resolve(appDir, '../..', target)))
 
-      return [[find, [normalizeRelativePath(target)]]]
+      return [
+        [find, [relativeTarget]],
+        [`${find}/*`, [`${relativeTarget}/*`]],
+      ]
     }),
   )
 }
 
-export function collectAliasContractIssues({ aliasEntries, tsconfigPaths }) {
-  const expectedPaths = createAliasContractExpectation(aliasEntries)
+export function collectAliasContractIssues({ aliasEntries, tsconfigPaths, appDir }) {
+  const expectedPaths = createAliasContractExpectation(aliasEntries, appDir)
   const issues = []
 
   for (const [key, expectedValue] of Object.entries(expectedPaths)) {
@@ -96,7 +100,12 @@ function checkAppAliasContract({ name, pathsConfigPath, tsconfigPath }) {
   const aliasEntries = extractAliasEntriesFromText(readText(pathsConfigPath))
   const tsconfig = readJson(tsconfigPath)
   const tsconfigPaths = tsconfig.compilerOptions?.paths ?? {}
-  const issues = collectAliasContractIssues({ aliasEntries, tsconfigPaths })
+  const appDir = dirname(resolve(rootDir, tsconfigPath))
+  const issues = collectAliasContractIssues({ aliasEntries, tsconfigPaths, appDir })
+
+  if (aliasEntries.length === 0) {
+    issues.unshift(`No shared alias entries found in ${toRepoPath(pathsConfigPath)}`)
+  }
 
   return {
     name,

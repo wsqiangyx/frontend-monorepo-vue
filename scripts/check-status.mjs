@@ -156,6 +156,13 @@ export function checkStatusConsistency(rootDir = defaultRootDir) {
     )
   }
 
+  for (const name of appNames.filter((appName) => status.apps[appName].status === 'experimental')) {
+    invariant(
+      !vitestConfig.includes(`apps/${name}/vitest.config.ts`),
+      `Experimental app "${name}" must not be in the root vitest matrix`,
+    )
+  }
+
   assertScriptContains('verify', 'pnpm check:status', scripts)
   invariant(typeof scripts['test:scripts'] === 'string', 'Missing root script: test:scripts')
 }

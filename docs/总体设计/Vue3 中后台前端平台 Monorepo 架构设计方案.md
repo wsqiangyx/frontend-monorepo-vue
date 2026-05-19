@@ -1,6 +1,6 @@
 # Vue3 中后台前端平台 Monorepo 架构设计方案
 
-**文档版本**：v1.2  
+**文档版本**：v1.3  
 **修订日期**：2026-05-19  
 **适用仓库**：`vue-admin-monorepo`  
 **文档性质**：唯一上游概要设计
@@ -67,11 +67,11 @@
 | 决策编号 | 标题                                        | 决策日期   | 状态      | 正式文档 |
 | -------- | ------------------------------------------- | ---------- | --------- | -------- |
 | ADR-001  | `shared-service` 中的纯函数禁止依赖 UI 框架 | 2026-05-10 | ✅ 已采纳 | 已完成   |
-| ADR-002  | 正式宿主为 Vue3 单应用壳                    | 2026-05-19 | ✅ 已采纳 | 待补全   |
-| ADR-003  | 选用 TDesign Vue Next 作为 Vue3 宿主组件库  | 2026-05-19 | ✅ 已采纳 | 待补全   |
-| ADR-004  | 采用 pnpm catalog 统一管理核心依赖版本      | 2026-05-18 | ✅ 已采纳 | 待补全   |
-| ADR-005  | 工作流引擎以 `shared-workflow` 独立包交付   | 2026-05-18 | ✅ 已采纳 | 待补全   |
-| ADR-006  | 文档修订与审核机制                          | 2026-05-19 | ✅ 已采纳 | 待补全   |
+| ADR-002  | 正式宿主为 Vue3 单应用壳                    | 2026-05-19 | ✅ 已采纳 | 已完成   |
+| ADR-003  | 选用 TDesign Vue Next 作为 Vue3 宿主组件库  | 2026-05-19 | ✅ 已采纳 | 已完成   |
+| ADR-004  | 采用 pnpm catalog 统一管理核心依赖版本      | 2026-05-18 | ✅ 已采纳 | 已完成   |
+| ADR-005  | 工作流引擎以 `shared-workflow` 独立包交付   | 2026-05-18 | ✅ 已采纳 | 已完成   |
+| ADR-006  | 文档修订与审核机制                          | 2026-05-19 | ✅ 已采纳 | 已完成   |
 
 > **补充说明**：ADR-002 和 ADR-003 为技术栈选择的根基性决策，建议在仓库初始化后一个月内完成正式决策文档的编写，记录完整的背景、替代方案评估及决策后果。
 
@@ -138,12 +138,12 @@ vue-admin-monorepo/
 │  ├─ shared-utils/            # 通用工具（格式化、校验、存储、请求、日志）
 │  ├─ shared-i18n/             # 国际化运行时与语言包
 │  ├─ shared-service/          # 服务层（API 封装、Token 管理、权限判断、Mock）
-│  ├─ shared-ui/               # Vue3 UI 组件、图表组件、布局 Hooks
-│  └─ shared-workflow/         # 工作流引擎（设计器、查看器、表单设计器）
+│  ├─ shared-ui/               # Vue3 UI 组件封装
+│  └─ shared-workflow/         # 工作流引擎基础契约
 ├─ docs/
 │  └─ decisions/               # ADR 正式文档
 ├─ docker/                     # 容器部署配置
-├─ scripts/                    # 构建与工具脚本（含 check-arch.sh）
+├─ scripts/                    # 构建与工具脚本
 ├─ pnpm-workspace.yaml
 ├─ tsconfig.base.json
 ├─ eslint.config.mjs
@@ -180,11 +180,11 @@ vue3-app → shared-ui → shared-service → shared-utils
 - `shared-service` 权限判断等纯函数不依赖 Vue/DOM
 - `shared-ui` 不反向定义平台规则
 - 宿主应用不能复制共享层的主题或 i18n 运行时
-- `shared-service/mock-setup` 仅限开发/测试环境引入，生产构建时 Tree Shaking 剔除
+- `@repo/shared-service/mock/browser` 仅限开发/测试环境引入，生产构建时 Tree Shaking 剔除
 
 ### 5.3 依赖检查规则
 
-用于 `check:arch` 脚本（具体实现见 `scripts/check-arch.sh`）：
+以下规则用于后续 `check:arch` 治理脚本，目前仍属于治理缺口而非已落地门禁：
 
 - 基础共享层 (`design-tokens`, `shared-utils`, `shared-i18n`) 的 `dependencies` 不得包含其他 workspace 包
 - `shared-service` 不得依赖 `vue`, `vue-router`, `pinia`, `tdesign-vue-next`, `@antv/g2`, `bpmn-js`
@@ -260,32 +260,28 @@ vue3-app → shared-ui → shared-service → shared-utils
 - 组件命名遵循 PascalCase，Props 命名使用 camelCase
 - 每个组件文件必须包含 `defineProps` 的类型声明
 
-**已实现组件**：`PageContainer`, `SidebarMenu`, `AuthButton` 等基础组件
+**已实现组件**：`PageContainer`, `SidebarMenu`, `AuthButton`
 
-**图表**：`LineChart`, `BarChart`, `PieChart`，基于 AntV G2，统一主题色  
-**布局 Hooks**：`useMenu`, `useLayout`，消费权限数组返回菜单树
+**规划中能力**：图表组件、布局 Hooks
 
 #### `shared-workflow` – 工作流引擎
 
-- **组件**：`BpmnDesigner`, `BpmnViewer`, `FormDesigner`（Vue 封装）
-- **结构**：`core/` 放置框架无关逻辑，`vue/` 放 Vue 封装
-- **当前状态**：占位组件，分阶段实现（查看器 → 设计器 → 表单设计器）
+- **当前已实现**：`core/` 下的框架无关类型与常量导出
+- **规划中能力**：`BpmnDesigner`、`BpmnViewer`、`FormDesigner` 等 Vue 封装
 
 ### 6.4 宿主层
 
 #### `apps/vue3-app` – 组合根
 
 - **技术栈**：Vue3 + Pinia + vue-router + TDesign + vue-i18n
-- **启动链**：环境校验 → Mock 启动 → 样式注入 → i18n → Router/Store → 挂载
+- **启动链**：环境校验 → 开发态 Mock 启动 → design tokens 注入 / `virtual:uno.css` → i18n → Router/Pinia → 挂载
 - **内部结构**：
 
-| 目录/文件              | 职责                                      |
-| ---------------------- | ----------------------------------------- |
-| `main.ts`              | 启动入口，预处理                          |
-| `router/`              | 路由实例化，权限守卫                      |
-| `stores/`              | Pinia store，调用 `shared-service` 纯函数 |
-| `layouts/AppShell.vue` | 宿主级布局、菜单、语言切换                |
-| `views/`               | 页面组件                                  |
+| 目录/文件    | 职责                                        |
+| ------------ | ------------------------------------------- |
+| `bootstrap/` | 环境校验、Mock、design tokens、runtime 装配 |
+| `main.ts`    | 启动入口                                    |
+| `views/`     | 页面组件                                    |
 
 ---
 
@@ -294,8 +290,8 @@ vue3-app → shared-ui → shared-service → shared-utils
 ### 7.1 启动链
 
 1. 环境变量校验
-2. 开发环境动态启动 MSW (`setupMock()`)
-3. 引入 `design-tokens/tokens.css` 和 `virtual:uno.css`
+2. 开发环境动态启动 MSW (`@repo/shared-service/mock/browser`)
+3. 注入 design tokens，并引入 `virtual:uno.css`
 4. 创建 i18n 实例 (`createVueI18n()`)
 5. 注册 TDesign (`t-config-provider` 传入全局配置和语言)
 6. 注册 Pinia、Router
@@ -326,19 +322,19 @@ vue3-app → shared-ui → shared-service → shared-utils
 ## 9. Mock 策略
 
 - 使用 MSW，handlers 按业务模块划分
-- 启动入口 `shared-service/mock-setup`，仅开发环境动态加载
+- 启动入口 `@repo/shared-service/mock/browser`，仅开发环境动态加载
 - 数据格式与真实 API 同构
 
 ---
 
 ## 10. 测试策略（渐进式）
 
-| 层级     | 范围                                | 工具                     | 状态           | 目标            |
-| -------- | ----------------------------------- | ------------------------ | -------------- | --------------- |
-| 单元测试 | shared-utils、shared-service 纯函数 | Vitest                   | 根配置就绪     | 核心路径 ≥80%   |
-| 组件测试 | shared-ui 关键交互                  | Vitest + @vue/test-utils | 已识别，待引入 | 关键路径覆盖    |
-| 集成测试 | vue3-app + Mock 交互链              | Vitest                   | 已识别         | 登录/权限主链路 |
-| E2E 测试 | 关键业务流程                        | Playwright (候选)        | 未纳入基线     | Q3 评估         |
+| 层级     | 范围                                | 工具                     | 状态       | 目标            |
+| -------- | ----------------------------------- | ------------------------ | ---------- | --------------- |
+| 单元测试 | shared-utils、shared-service 纯函数 | Vitest                   | 根配置就绪 | 核心路径 ≥80%   |
+| 组件测试 | shared-ui 关键交互                  | Vitest + @vue/test-utils | 已落地     | 关键路径覆盖    |
+| 集成测试 | vue3-app + Mock 交互链              | Vitest                   | 已落地     | 登录/权限主链路 |
+| E2E 测试 | 关键业务流程                        | Playwright (候选)        | 未纳入基线 | Q3 评估         |
 
 **覆盖率目标说明**：
 
@@ -459,7 +455,7 @@ server {
 如果只需要最精简的启动模板，可删除以下包：
 
 - `shared-workflow`：移除工作流引擎，删除目录后在根 `pnpm-workspace.yaml` 中去掉引用
-- `shared-ui` 中的图表组件：删除 `src/charts/` 目录，移除 `@antv/g2` 依赖
+- `shared-ui` 中的图表组件：若后续引入 `src/charts/`，可删除该目录并移除 `@antv/g2` 依赖
 - 可选：删除 `shared-ui` 中未使用的业务组件，仅保留 `PageContainer`、`SidebarMenu` 等基础组件
 
 ### 16.2 更换组件库
@@ -532,6 +528,13 @@ apps:
 - 根 `STATUS.yaml`
 
 ### 18.3 本版主要变更
+
+**v1.3** (2026-05-19)：
+
+- 新增 `docs/decisions/` 与 `docker/` 最小正式骨架
+- `check:alias` 改为基于 `paths.config.ts` 的真实门禁
+- 启动链、Mock 入口、`design-tokens` 导出路径与当前实现对齐
+- 将图表组件、布局 hooks、工作流 Vue 封装等未落地能力改标为规划中
 
 **v1.2** (2026-05-19)：
 
