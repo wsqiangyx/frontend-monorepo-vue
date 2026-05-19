@@ -8,6 +8,7 @@ export default defineConfig({
       'packages/shared-service/vitest.config.ts',
       'packages/design-tokens/vitest.config.ts',
       'packages/shared-ui/vitest.config.ts',
+      'packages/shared-workflow/vitest.config.ts',
       'apps/vue3-app/vitest.config.ts',
     ],
   },

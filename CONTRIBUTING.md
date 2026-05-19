@@ -18,7 +18,7 @@ corepack prepare pnpm@10.33.1 --activate
 
 1. **Fork & Clone** — Fork 本仓库并 clone 到本地
 2. **安装依赖** — `pnpm install`
-3. **启动开发服务器** — `pnpm dev:react`
+3. **启动开发服务器** — `pnpm dev:vue`
 4. **修改代码** — 遵循现有架构约束（见 AGENTS.md）
 5. **本地校验** — `pnpm verify` 确保所有检查通过
 6. **提交 PR** — 遵循 PR 模板要求
@@ -27,7 +27,7 @@ corepack prepare pnpm@10.33.1 --activate
 
 本仓库有严格的代码规范要求，详见 [`AGENTS.md`](./AGENTS.md)：
 
-- **ESLint**：使用 flat config，基于 `typescript-eslint`，集成 React 插件
+- **ESLint**：使用 flat config，基于 `typescript-eslint`，集成 Vue 插件
 - **Stylelint**：SCSS 标准规范，包含属性排序
 - **Prettier**：统一代码格式（`semi: false`, `singleQuote: true`, `printWidth: 100`）
 - **Commitlint**：提交信息必须遵循 Conventional Commits 格式

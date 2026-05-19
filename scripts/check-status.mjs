@@ -91,15 +91,6 @@ function assertScriptContains(scriptName, expectedFragment, scripts) {
   )
 }
 
-function assertScriptExcludes(scriptName, unexpectedFragment, scripts) {
-  const script = scripts[scriptName]
-  invariant(typeof script === 'string', `Missing root script: ${scriptName}`)
-  invariant(
-    !script.includes(unexpectedFragment),
-    `Root script "${scriptName}" must not include "${unexpectedFragment}"`,
-  )
-}
-
 export function checkStatusConsistency(rootDir = defaultRootDir) {
   const status = parseStatusYaml(readFileSync(resolve(rootDir, 'STATUS.yaml'), 'utf8'))
   const packageJson = JSON.parse(readFileSync(resolve(rootDir, 'package.json'), 'utf8'))

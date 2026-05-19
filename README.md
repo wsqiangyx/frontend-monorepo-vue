@@ -15,11 +15,11 @@
 
 这是一个以 Vue3 为正式宿主应用的前端 monorepo 基线仓库，不是单应用仓库，也不是通用前端空白模板。
 
-- `apps/vue3-app`：Vue3 + Naive UI 应用壳
+- `apps/vue3-app`：Vue3 + TDesign 应用壳
 - `packages/shared-utils`：通用工具（格式化、校验、存储、请求、日志）
 - `packages/shared-i18n`：国际化运行时与语言包（vue-i18n）
 - `packages/shared-service`：服务层（API 封装、Token 管理、权限判断、Mock）
-- `packages/design-tokens`：设计令牌（CSS 变量、Naive UI 主题覆盖、UnoCSS 预设）
+- `packages/design-tokens`：设计令牌（CSS 变量、TDesign 主题适配、UnoCSS 预设）
 - `packages/shared-ui`：Vue3 UI 组件、图表组件、布局 Hooks
 - `packages/shared-workflow`：工作流引擎（experimental）
 
@@ -58,16 +58,16 @@ pnpm verify
 
 ## 常用脚本
 
-| 命令 | 说明 |
-|------|------|
-| `pnpm dev:vue` | 启动 Vue3 应用 |
-| `pnpm build:shared` | 构建共享包 |
-| `pnpm build:vue` | 先构建共享包，再构建 Vue3 应用 |
-| `pnpm build` | 执行仓库完整构建链路 |
-| `pnpm typecheck` | 执行全仓类型检查 |
-| `pnpm lint` | 执行 ESLint |
-| `pnpm test` | 执行全仓测试 |
-| `pnpm verify` | 聚合执行所有校验 |
+| 命令                | 说明                           |
+| ------------------- | ------------------------------ |
+| `pnpm dev:vue`      | 启动 Vue3 应用                 |
+| `pnpm build:shared` | 构建共享包                     |
+| `pnpm build:vue`    | 先构建共享包，再构建 Vue3 应用 |
+| `pnpm build`        | 执行仓库完整构建链路           |
+| `pnpm typecheck`    | 执行全仓类型检查               |
+| `pnpm lint`         | 执行 ESLint                    |
+| `pnpm test`         | 执行全仓测试                   |
+| `pnpm verify`       | 聚合执行所有校验               |
 
 ## 目录结构
 
@@ -76,7 +76,7 @@ vue-admin-monorepo/
 ├─ apps/
 │  └─ vue3-app/                  # Vue3 正式宿主应用
 ├─ packages/
-│  ├─ design-tokens/             # 设计令牌与 Naive UI 主题
+│  ├─ design-tokens/             # 设计令牌与 TDesign 主题
 │  ├─ shared-utils/              # 通用工具
 │  ├─ shared-i18n/               # 国际化运行时
 │  ├─ shared-service/            # 服务层与 Mock
@@ -93,8 +93,8 @@ vue-admin-monorepo/
 
 - 启动链：环境校验 → Mock → tokens.css → i18n → Router/Store → 挂载
 - `shared-service/mock-setup` 仅限开发/测试环境引入
-- `design-tokens` 导出 Naive UI `GlobalThemeOverrides`
-- `shared-i18n` 使用 vue-i18n，通过 `n-config-provider` 联动
+- `design-tokens` 导出 TDesign CSS 变量契约
+- `shared-i18n` 使用 vue-i18n，通过 `t-config-provider` 联动
 - package `exports` 继续只指向 `dist/`
 
 更完整的维护约束见 [`AGENTS.md`](./AGENTS.md)。

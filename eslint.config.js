@@ -4,7 +4,11 @@ import tseslint from 'typescript-eslint'
 import pluginVue from 'eslint-plugin-vue'
 import configPrettier from 'eslint-config-prettier'
 
-const vueFiles = ['apps/vue3-*/**/*.{ts,vue}', 'packages/shared-ui/**/*.{ts,vue}', 'packages/shared-workflow/**/*.{ts,vue}']
+const vueFiles = [
+  'apps/vue3-*/**/*.{ts,vue}',
+  'packages/shared-ui/**/*.{ts,vue}',
+  'packages/shared-workflow/**/*.{ts,vue}',
+]
 
 export default defineConfig(
   {
