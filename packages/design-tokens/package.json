@@ -14,9 +14,9 @@
       "types": "./dist/to-css.d.ts",
       "default": "./dist/to-css.js"
     },
-    "./naive-theme": {
-      "types": "./dist/theme/naive.d.ts",
-      "default": "./dist/theme/naive.js"
+    "./tdesign-theme": {
+      "types": "./dist/theme/tdesign.d.ts",
+      "default": "./dist/theme/tdesign.js"
     }
   },
   "scripts": {
@@ -25,5 +25,8 @@
     "test": "node ../../scripts/vitest.cjs run",
     "test:watch": "node ../../scripts/vitest.cjs",
     "test:coverage": "node ../../scripts/vitest.cjs run --coverage"
+  },
+  "devDependencies": {
+    "tdesign-vue-next": "catalog:"
   }
 }

@@ -1,9 +1,4 @@
-import {
-  themeModeValues,
-  themeNameValues,
-  type ThemeMode,
-  type ThemeName,
-} from './types'
+import { themeModeValues, themeNameValues, type ThemeMode, type ThemeName } from './types'
 import {
   defaultDarkTheme,
   defaultLightTheme,
