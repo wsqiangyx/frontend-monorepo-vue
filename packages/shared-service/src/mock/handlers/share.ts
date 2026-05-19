@@ -1,5 +1,5 @@
 // ============================================================================
-// @repo/mock — 分享 Handler
+// @repo/shared-service/mock — 分享 Handler
 // ============================================================================
 // POST /api/routes/:routeId/share  — 为 Route 生成/更新分享 token
 // GET  /api/share/:token           — 通过 token 获取分享信息

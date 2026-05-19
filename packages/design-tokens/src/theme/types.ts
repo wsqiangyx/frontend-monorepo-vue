@@ -1,9 +1,9 @@
 import { colors } from '../colors'
 import { radius } from '../radius'
 import { shadows } from '../shadows'
-import type { ThemeMode, ThemeName } from '@repo/shared/ui-contract'
 
-export type { ThemeMode, ThemeName } from '@repo/shared/ui-contract'
+export type ThemeName = 'default'
+export type ThemeMode = 'light' | 'dark'
 
 export interface ThemeSnapshot {
   name: ThemeName

@@ -1,5 +1,5 @@
 // ============================================================================
-// @repo/mock — 响应信封工具
+// @repo/shared-service/mock — 响应信封工具
 // ============================================================================
 // 统一 mock 返回格式，与平台契约 ApiResponse<T> 对齐：
 //   { success: boolean, code: string, message: string, data: T, requestId?: string, timestamp: string }

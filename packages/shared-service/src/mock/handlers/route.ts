@@ -1,5 +1,5 @@
 // ============================================================================
-// @repo/mock — 路由 Handler
+// @repo/shared-service/mock — 路由 Handler
 // ============================================================================
 // GET    /api/screens/:screenId/routes — 返回 Route 列表
 // POST   /api/screens/:screenId/routes — 创建 Route

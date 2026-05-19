@@ -5,6 +5,7 @@
     { "path": "./packages/shared-i18n/tsconfig.build.json" },
     { "path": "./packages/shared-service/tsconfig.build.json" },
     { "path": "./packages/design-tokens/tsconfig.build.json" },
-    { "path": "./packages/shared-ui/tsconfig.build.json" }
+    { "path": "./packages/shared-ui/tsconfig.build.json" },
+    { "path": "./packages/shared-workflow/tsconfig.build.json" }
   ]
 }
