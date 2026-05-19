@@ -1,0 +1,10 @@
+// @repo/shared-utils 的 TypeScript 配置
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "composite": true
+  },
+  "include": ["src"]
+}

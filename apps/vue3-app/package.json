@@ -1,0 +1,32 @@
+{
+  "name": "@repo/vue3-app",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node ../../scripts/vite.cjs",
+    "build": "node ../../scripts/vite.cjs build",
+    "preview": "node ../../scripts/vite.cjs preview",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.app.json",
+    "test": "node ../../scripts/vitest.cjs run",
+    "test:watch": "node ../../scripts/vitest.cjs",
+    "test:coverage": "node ../../scripts/vitest.cjs run --coverage"
+  },
+  "dependencies": {
+    "@repo/design-tokens": "workspace:*",
+    "@repo/shared-utils": "workspace:*",
+    "@repo/shared-i18n": "workspace:*",
+    "@repo/shared-service": "workspace:*",
+    "@repo/shared-ui": "workspace:*",
+    "vue": "catalog:",
+    "vue-router": "catalog:",
+    "pinia": "catalog:",
+    "naive-ui": "catalog:"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "5.2.4",
+    "@types/node": "24.12.2",
+    "vite": "8.0.10",
+    "vue-tsc": "2.2.0"
+  }
+}
