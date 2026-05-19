@@ -19,9 +19,10 @@
     "@repo/shared-service": "workspace:*",
     "@repo/shared-ui": "workspace:*",
     "vue": "catalog:",
+    "vue-i18n": "catalog:",
     "vue-router": "catalog:",
     "pinia": "catalog:",
-    "naive-ui": "catalog:"
+    "tdesign-vue-next": "catalog:"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "5.2.4",
