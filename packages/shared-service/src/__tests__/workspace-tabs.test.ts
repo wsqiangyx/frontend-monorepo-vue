@@ -10,7 +10,7 @@ import {
 describe('createTab', () => {
   it('should create a tab with defaults', () => {
     const tab = createTab({ key: 'home', routeName: 'Home', path: '/home' })
-    expect(tab.title).toBe('home')
+    expect(tab.title).toBe('Home')
     expect(tab.closable).toBe(true)
     expect(tab.affix).toBe(false)
     expect(tab.keepAlive).toBe(false)

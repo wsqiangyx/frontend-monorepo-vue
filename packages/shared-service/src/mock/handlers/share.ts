@@ -27,7 +27,7 @@ function makeTimestamp(): string {
 export const shareHandlers = [
   // POST /api/routes/:routeId/share
   http.post(/\/api\/routes\/([^/]+)\/share$/, ({ params }) => {
-    const routeId = params.routeId as string
+    const routeId = params[0] as string
 
     // 检查是否已有分享记录
     const existing = shares.find((s) => s.routeId === routeId)
@@ -46,7 +46,7 @@ export const shareHandlers = [
 
   // GET /api/share/:token
   http.get(/\/api\/share\/([^/]+)$/, ({ params }) => {
-    const token = params.token as string
+    const token = params[0] as string
     const share = shares.find((s) => s.token === token)
 
     if (!share) return jsonResponse(fail('NOT_FOUND', '分享链接不存在'), 404)
@@ -64,7 +64,7 @@ export const shareHandlers = [
 
   // PUT /api/share/:token
   http.put(/\/api\/share\/([^/]+)$/, async ({ params, request }) => {
-    const token = params.token as string
+    const token = params[0] as string
     const share = shares.find((s) => s.token === token)
     if (!share) return jsonResponse(fail('NOT_FOUND', '分享链接不存在'), 404)
 
