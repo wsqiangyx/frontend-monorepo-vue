@@ -1,0 +1,65 @@
+{
+  "//": "Vue3 中后台前端平台 Monorepo 根包。所有 workspace 脚本通过 pnpm -F 或根脚本聚合执行。",
+  "name": "vue-admin-monorepo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.1",
+  "engines": {
+    "node": ">=24.11.0 <25"
+  },
+  "scripts": {
+    "template:init": "node ./scripts/init-template.mjs",
+    "template:check": "node ./scripts/check-template-residue.mjs . --no-fail",
+    "dev:vue": "pnpm -F @repo/vue3-app dev",
+    "build:shared": "pnpm --filter @repo/shared-utils build && pnpm --filter @repo/shared-i18n build && pnpm --filter @repo/shared-service build && pnpm --filter @repo/design-tokens build && pnpm --filter @repo/shared-ui build",
+    "build:vue": "pnpm build:shared && pnpm -F @repo/vue3-app build",
+    "build": "pnpm build:shared && pnpm --filter @repo/vue3-app build",
+    "typecheck": "pnpm --filter @repo/shared-utils typecheck && pnpm --filter @repo/shared-i18n typecheck && pnpm --filter @repo/shared-service typecheck && pnpm --filter @repo/design-tokens typecheck && pnpm --filter @repo/shared-ui typecheck && pnpm --filter @repo/vue3-app typecheck",
+    "check:alias": "node ./scripts/check-alias-contract.mjs",
+    "check:status": "node ./scripts/check-status.mjs",
+    "verify": "pnpm format:check && pnpm lint && pnpm stylelint && pnpm typecheck && pnpm check:alias && pnpm check:status && pnpm test && pnpm build && pnpm template:check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "stylelint": "stylelint \"apps/**/*.{scss,css}\" \"packages/**/*.{scss,css}\"",
+    "stylelint:fix": "stylelint \"apps/**/*.{scss,css}\" \"packages/**/*.{scss,css}\" --fix",
+    "test": "pnpm --filter @repo/shared-utils test && pnpm --filter @repo/shared-i18n test && pnpm --filter @repo/shared-service test && pnpm --filter @repo/design-tokens test && pnpm --filter @repo/shared-ui test && pnpm --filter @repo/vue3-app test",
+    "test:watch": "node ./scripts/vitest.cjs",
+    "test:scripts": "node --test \"scripts/__tests__/*.test.mjs\"",
+    "test:coverage": "pnpm --filter @repo/shared-utils test:coverage && pnpm --filter @repo/shared-i18n test:coverage && pnpm --filter @repo/shared-service test:coverage && pnpm --filter @repo/design-tokens test:coverage && pnpm --filter @repo/shared-ui test:coverage && pnpm --filter @repo/vue3-app test:coverage",
+    "prepare": "husky"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "msw"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "20.5.2",
+    "@commitlint/config-conventional": "20.5.0",
+    "@eslint/js": "9.39.4",
+    "@unocss/preset-attributify": "66.6.8",
+    "@unocss/preset-uno": "66.6.8",
+    "@unocss/reset": "66.6.8",
+    "@vitest/coverage-v8": "4.1.5",
+    "eslint": "9.39.4",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-vue": "10.1.0",
+    "husky": "9.1.7",
+    "jsdom": "29.1.0",
+    "lint-staged": "16.4.0",
+    "postcss-html": "1.8.1",
+    "prettier": "3.8.3",
+    "sass": "1.99.0",
+    "stylelint": "17.9.1",
+    "stylelint-config-standard-scss": "17.0.0",
+    "stylelint-order": "8.1.1",
+    "stylelint-scss": "7.0.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.59.1",
+    "unocss": "66.6.8",
+    "vitest": "4.1.5",
+    "vue-tsc": "2.2.0"
+  }
+}

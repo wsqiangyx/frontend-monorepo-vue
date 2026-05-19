@@ -1,0 +1,19 @@
+version: 1
+updated_at: 2026-05-19
+apps:
+  vue3-app:
+    status: stable
+    notes: 正式默认宿主应用，已纳入根脚本、根测试矩阵与模板默认交付范围
+packages:
+  design-tokens:
+    status: stable
+  shared-utils:
+    status: stable
+  shared-i18n:
+    status: stable
+  shared-service:
+    status: stable
+  shared-ui:
+    status: stable
+  shared-workflow:
+    status: experimental
