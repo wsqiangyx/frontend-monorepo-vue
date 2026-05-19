@@ -105,5 +105,5 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 
 ### `packages/shared-workflow`
 
-- 工作流引擎（experimental）
+- 工作流引擎
 - Vue 组件封装 bpmn-js

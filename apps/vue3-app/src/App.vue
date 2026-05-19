@@ -6,19 +6,20 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ConfigProvider as TConfigProvider } from 'tdesign-vue-next'
+import { useI18n } from 'vue-i18n'
 import zhCN from 'tdesign-vue-next/es/locale/zh_CN'
 import enUS from 'tdesign-vue-next/es/locale/en_US'
-import { useI18n } from 'vue-i18n'
+import { resolveTDesignLocale } from '@repo/shared-i18n'
+import type { TDesignLocaleMap } from '@repo/shared-i18n'
 
 const { locale } = useI18n()
 
-const localeMap: Record<string, unknown> = {
+const localeMap: TDesignLocaleMap = {
   'zh-CN': zhCN,
   'en-US': enUS,
 }
 
 const globalConfig = computed(() => ({
-  locale: localeMap[locale.value] ?? localeMap['zh-CN'],
+  locale: resolveTDesignLocale(locale.value as 'zh-CN' | 'en-US', localeMap),
 })) as unknown as Record<string, unknown>
 </script>

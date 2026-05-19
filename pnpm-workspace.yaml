@@ -7,6 +7,7 @@ packages:
 catalog:
   '@antv/g2': ^5.2
   '@vue/runtime-core': ^3.5
+  '@vue/test-utils': ^2.4
   axios: ^1.7
   bpmn-js: ^17.0
   msw: ^2.5

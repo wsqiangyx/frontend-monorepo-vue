@@ -16,4 +16,4 @@ packages:
   shared-ui:
     status: stable
   shared-workflow:
-    status: experimental
+    status: stable

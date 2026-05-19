@@ -21,7 +21,7 @@
 - `packages/shared-service`：服务层（API 封装、Token 管理、权限判断、Mock）
 - `packages/design-tokens`：设计令牌（CSS 变量、TDesign 主题适配、UnoCSS 预设）
 - `packages/shared-ui`：Vue3 UI 组件、图表组件、布局 Hooks
-- `packages/shared-workflow`：工作流引擎（experimental）
+- `packages/shared-workflow`：工作流引擎
 
 ## 当前架构
 
@@ -81,7 +81,7 @@ vue-admin-monorepo/
 │  ├─ shared-i18n/               # 国际化运行时
 │  ├─ shared-service/            # 服务层与 Mock
 │  ├─ shared-ui/                 # Vue3 UI 组件
-│  └─ shared-workflow/           # 工作流引擎（experimental）
+│  └─ shared-workflow/           # 工作流引擎
 ├─ docs/
 │  └─ 总体设计/                   # Vue3 架构设计方案
 ├─ scripts/
