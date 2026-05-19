@@ -13,6 +13,7 @@ const STABLE_PACKAGE_NAMES = [
   'shared-i18n',
   'shared-service',
   'shared-ui',
+  'shared-workflow',
 ]
 
 function listWorkspaceDirectories(rootDir, relativeDir) {

@@ -17,14 +17,14 @@
 
 ## 2. 阶段目标与边界
 
-Phase 0 只回答一件事：如何把仓库收敛为一个可验证、可扩展、可维护的前端 monorepo 基线，并补齐 React 平台后续阶段依赖的主题、共享 UI 与国际化基础设施。
+Phase 0 只回答一件事：如何把仓库收敛为一个可验证、可扩展、可维护的前端 monorepo 基线，并补齐 Vue3 平台后续阶段依赖的主题、共享 UI 与国际化基础设施。
 
 ### 2.1 本阶段要交付
 
 - workspace 结构与统一脚本契约
 - Vite / Vitest / TypeScript / ESLint / Stylelint / Prettier 基线
 - 文档主入口与索引关系
-- 共享主题运行时与 React 共享 UI 基线
+- 共享主题运行时与 Vue3 共享 UI 基线
 - 共享 i18n 运行时与双语词典基线
 
 ### 2.2 本阶段不交付
@@ -44,14 +44,14 @@ Phase 0 只回答一件事：如何把仓库收敛为一个可验证、可扩展
 
 ```text
 apps/
-  react-app/
+  vue3-app/
 packages/
-  shared/
-  platform-core/
-  ui-tokens/
-  resources/
-  mock/
-  ui-react/
+  shared-utils/
+  shared-service/
+  shared-i18n/
+  shared-ui/
+  shared-workflow/
+  design-tokens/
 ```
 
 ### 3.2 脚本与配置契约
@@ -60,7 +60,7 @@ packages/
 
 - `build`
 - `build:shared`
-- `build:react`
+- `build:vue`
 - `typecheck`
 - `lint`
 - `stylelint`
@@ -94,68 +94,70 @@ packages/
 
 ### 4.1 设计目标
 
-- 将 `packages/ui-tokens` 收敛为主题内核
+- 将 `packages/design-tokens` 收敛为主题内核
 - 支持运行时 `light / dark / system` 模式切换
-- 以 `packages/ui-react` 作为唯一正式共享 UI 壳
-- 将 React app 收敛为统一 Provider 接入方式
+- 以 `packages/shared-ui` 作为唯一正式共享 UI 壳
+- 将 Vue3 app 收敛为统一接入方式
 
 ### 4.2 总体方案
 
-采用“主题内核 + React 共享组件包 + app 接入层”的结构：
+采用"主题内核 + Vue3 共享组件包 + app 接入层"的结构：
 
-- `packages/ui-tokens`
-  - 管理主题注册表、语义 token、主题快照、CSS 变量、Ant Design 主题映射
-- `packages/ui-react`
-  - 封装 React 公共组件
+- `packages/design-tokens`
+  - 管理主题注册表、语义 token、主题快照、CSS 变量、TDesign 主题映射
+- `packages/shared-ui`
+  - 封装 Vue3 公共组件
   - 不保存主题状态，只消费主题结果
-- `apps/react-app`
+- `apps/vue3-app`
   - 持有 `themeName`、`preference`、`resolvedMode`
-  - 通过 Provider 注入主题上下文与框架主题
+  - 通过 `t-config-provider` 注入主题上下文与框架主题
 
 正式原则：
 
-- 主题定义集中在 `ui-tokens`
-- 组件实现集中在 `ui-react`
+- 主题定义集中在 `design-tokens`
+- 组件实现集中在 `shared-ui`
 - app 只负责选择当前主题并组合页面
 
 ### 4.3 主题与共享 UI 正式契约
 
 - `ThemePreference = 'system' | 'light' | 'dark'`
-- 主题运行时优先收敛到 `@repo/ui-tokens/theme`
-- `@repo/ui-tokens` 根入口承载 token、CSS 变量和主题适配
-- 共享 UI 样式只能由 React app 在 `bootstrap.tsx` 中显式引入 `@repo/ui-react/style.css`
-- `main -> bootstrap -> App` 分层不得破坏
-- `index.html` 必须在 `main.tsx` 前加载 `/theme-init.js`
+- 主题运行时优先收敛到 `@repo/design-tokens`
+- `@repo/design-tokens` 根入口承载 token、CSS 变量和主题适配
+- 共享 UI 样式由 TDesign 官方样式 `tdesign-vue-next/es/style/index.css` 提供基线
+- `main -> App` 分层不得破坏
+- `index.html` 必须在 `main.ts` 前加载 `/theme-init.js`
 
 ## 5. 0.3 国际化
 
 ### 5.1 设计目标
 
 - 仅支持 `zh-CN` 与 `en-US`
-- 在 `packages/shared` 中建立框架无关的 i18n 运行时
-- 在 React app 建立统一的 locale 初始化、持久化与切换链路
+- 在 `packages/shared-i18n` 中建立框架无关的 i18n 运行时
+- 在 Vue3 app 建立统一的 locale 初始化、持久化与切换链路
 - 去除共享组件中的内部硬编码英文
 
 ### 5.2 总体方案
 
-采用“共享 i18n 内核 + React app 轻量接入 + 共享组件不持有翻译运行时”的方案。
+采用"共享 i18n 内核 + Vue3 app 轻量接入 + 共享组件不持有翻译运行时"的方案。
 
 分层如下：
 
-- `packages/shared`
-  - 提供 `@repo/shared/i18n`
+- `packages/shared-i18n`
+  - 提供 `@repo/shared-i18n`
   - 承载 locale 类型、词典结构、fallback 规则、浏览器语言探测、localStorage 持久化与翻译函数
-- `apps/react-app`
-  - 建立 locale store 与 provider/hook
+  - 提供 `resolveTDesignLocale` 用于 TDesign locale 映射
+- `apps/vue3-app`
+  - 通过 `createVueI18n` 初始化 vue-i18n 实例
+  - 通过 `t-config-provider` 接入 TDesign locale
   - 负责组装 shared messages 与 app messages
   - 负责语言切换入口与页面级文案消费
-- `packages/ui-react`
-  - 不直接依赖 `@repo/shared/i18n`
+- `packages/shared-ui`
+  - 不直接依赖 `@repo/shared-i18n`
   - 仅消费外部传入的翻译后文案
 
 ### 5.3 i18n 正式契约
 
-- `@repo/shared/i18n` 是唯一共享国际化运行时
+- `@repo/shared-i18n` 是唯一共享国际化运行时
 - 当前正式支持语言只有 `zh-CN` 与 `en-US`
 - 正式 locale 持久化 key：`repo-locale`
 - 共享组件不承接翻译运行时，只接收翻译后的文本 props
@@ -163,6 +165,6 @@ packages/
 ## 6. Phase 0 总体验收标准
 
 - 工程基线、主题、共享 UI 与国际化基线按阶段边界完成收敛
-- `main -> bootstrap -> App` 启动链稳定
+- `main -> App` 启动链稳定
 - `README.md` / `AGENTS.md` / `TEMPLATE.md` 与总体设计一致
 - 根 `verify` 可以作为统一收口入口

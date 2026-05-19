@@ -503,7 +503,7 @@ packages:
   shared-i18n: stable
   shared-service: stable
   shared-ui: stable
-  shared-workflow: experimental
+  shared-workflow: stable
 
 apps:
   vue3-app: stable

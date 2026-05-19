@@ -29,7 +29,7 @@ Phase 2 的目标是在平台基座上沉淀第一批可复用的管理页范式
 
 - 复用平台契约
 - 复用共享 UI 壳
-- 以 React app 为唯一正式样例宿主
+- 以 Vue3 app 为唯一正式样例宿主
 - 不引入完整 CRUD 持久化
 
 ### 3.1 明确不做
@@ -43,21 +43,20 @@ Phase 2 的目标是在平台基座上沉淀第一批可复用的管理页范式
 
 本设计假定 Phase 1 已提供以下稳定出口：
 
-- `@repo/platform-core` 的平台菜单、权限、请求契约与错误模型
-- `@repo/mock` 的第一批业务样例接口与统一分页结构
-- `@repo/ui-react` 的 `PageHeader`、`FilterBar`、`DataPanel`、`PermissionGate` 等共享壳组件
-- `apps/react-app` 的平台壳、路由装配与权限接线已稳定
+- `@repo/shared-service` 的平台菜单、权限、请求契约与错误模型
+- `@repo/shared-service/mock` 的第一批业务样例接口与统一分页结构
+- `@repo/shared-ui` 的 `PageContainer`、`SidebarMenu`、`AuthButton` 等共享壳组件
+- `apps/vue3-app` 的平台壳、路由装配与权限接线已稳定
 
 ## 5. 页面范式
 
-- PageHeader
-- FilterBar
-- DataPanel
-- PermissionGate
+- PageContainer
+- SidebarMenu
+- AuthButton
 
 建议统一结构：
 
-`PageHeader -> FilterBar -> DataPanel -> Table/List Content`
+`PageContainer -> 业务内容区`
 
 ## 6. 权限与数据
 
@@ -74,7 +73,7 @@ Phase 2 的目标是在平台基座上沉淀第一批可复用的管理页范式
 
 ## 7. 验收标准
 
-- React 侧有可运行样板
+- Vue3 侧有可运行样板
 - 页面契约一致
 - 权限控制生效
 - Mock 演练正常
