@@ -29,7 +29,7 @@
     "@types/node": "24.12.2",
     "@vue/test-utils": "catalog:",
     "msw": "catalog:",
-    "vite": "8.0.10",
+    "vite": "8.0.13",
     "vue-tsc": "2.2.0"
   }
 }
