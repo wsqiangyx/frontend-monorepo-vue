@@ -5,6 +5,9 @@ import { shadows } from '../shadows'
 export type ThemeName = 'default'
 export type ThemeMode = 'light' | 'dark'
 
+export const themeNameValues: ThemeName[] = ['default']
+export const themeModeValues: ThemeMode[] = ['light', 'dark']
+
 export interface ThemeSnapshot {
   name: ThemeName
   mode: ThemeMode

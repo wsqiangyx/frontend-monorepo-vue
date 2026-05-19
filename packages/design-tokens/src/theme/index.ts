@@ -14,4 +14,5 @@ export {
   setStoredThemePreference,
   subscribeToSystemThemeChange,
 } from './system'
-export { createNaiveThemeOverrides } from './naive'
+export { createTDesignThemeVars, generateTDesignThemeCss } from './tdesign'
+export type { TDesignThemeVars } from './tdesign'
