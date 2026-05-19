@@ -6,13 +6,7 @@ import { fileURLToPath } from 'node:url'
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const stdout = globalThis.console
 
-const appContracts = [
-  {
-    name: '@repo/react-app',
-    pathsConfigPath: 'apps/react-app/paths.config.ts',
-    tsconfigPath: 'apps/react-app/tsconfig.app.json',
-  },
-]
+const appContracts = []
 
 export function extractAliasEntriesFromText(text) {
   const aliasEntryPattern =

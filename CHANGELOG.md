@@ -10,7 +10,7 @@ The format is based on Keep a Changelog, but the repository currently maintains 
 
 - Git template oriented README and Day 0 checklist
 - Template initialization and pruning guide
-- Template env examples for root and React app
+- Template env examples for root and Vue3 app
 - Placeholder governance assets for license and changelog maintenance
 
 ### Changed

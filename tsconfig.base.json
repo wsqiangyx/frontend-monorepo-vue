@@ -36,7 +36,7 @@
     // 也是 project references 增量构建的必要条件。
     "isolatedModules": true,
 
-    // 生成 .d.ts 声明文件。共享包（shared、ui-tokens、mock）被其他包消费时
+    // 生成 .d.ts 声明文件。共享包（shared-utils、design-tokens、shared-service）被其他包消费时
     // 依赖这些声明文件获取类型信息。
     "declaration": true,
 

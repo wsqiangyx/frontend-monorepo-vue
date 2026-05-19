@@ -14,7 +14,7 @@
 ```text
 请列出你实际执行过的命令与结果摘要，例如：
 - pnpm verify
-- pnpm -F @repo/react-app test
+- pnpm -F @repo/vue3-app test
 ```
 
 ## 风险与回滚点

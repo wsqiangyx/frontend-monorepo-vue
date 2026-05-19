@@ -47,20 +47,21 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 ### 4. Vite 与 Vitest 的 alias / 插件链必须同步
 
 如果你修改某个 app 的 `vite.config.ts`，同时检查：
+
 - 对应的 `vitest.config.ts`
 - 对应的 `paths.config.ts`
 - 对应的 `tsconfig.app.json`
 
-### 5. 组件库选定 Naive UI
+### 5. 组件库选定 TDesign Vue Next
 
-- `design-tokens` 导出 Naive UI `GlobalThemeOverrides`
-- `shared-ui` 组件基于 Naive UI 封装
-- 国际化使用 `n-config-provider` + `createLocale`
+- `design-tokens` 输出 TDesign CSS 变量契约
+- `shared-ui` 组件基于 TDesign 封装
+- 国际化使用 `t-config-provider` + TDesign locale
 
 ### 6. 保持 `design-tokens` 的职责收敛
 
 - CSS 变量必须继续输出为 `kebab-case`
-- `./tokens.css`、`./naive-theme`、`./uno-preset` 为正式导出路径
+- `./tokens.css`、`./tdesign-theme`、`./uno-preset` 为正式导出路径
 - 不要在 app 内复制 token 逻辑
 
 ### 7. `shared-service/mock-setup` 仅限开发/测试环境
@@ -73,13 +74,13 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 
 ### `apps/vue3-app`
 
-- Vue3 + Naive UI 应用壳
+- Vue3 + TDesign 应用壳
 - 启动链：环境校验 → Mock → tokens.css → i18n → Router/Store → 挂载
-- 主题通过 `n-config-provider` 接入
+- 主题通过 `t-config-provider` 接入
 
 ### `packages/design-tokens`
 
-- CSS 自定义属性、Naive UI `GlobalThemeOverrides`、UnoCSS 预设
+- CSS 自定义属性、TDesign CSS 变量契约、UnoCSS 预设
 - 图表配色常量
 
 ### `packages/shared-utils`
@@ -90,7 +91,7 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 ### `packages/shared-i18n`
 
 - 中英文语言包、`createVueI18n` 初始化函数
-- Naive UI locale 映射
+- TDesign locale 映射
 
 ### `packages/shared-service`
 
@@ -100,7 +101,7 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 ### `packages/shared-ui`
 
 - Vue3 UI 组件、图表组件、布局 Hooks
-- 基于 Naive UI 二次封装
+- 基于 TDesign 二次封装
 
 ### `packages/shared-workflow`
 
