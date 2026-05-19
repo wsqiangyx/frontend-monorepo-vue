@@ -1,0 +1,25 @@
+/* @repo/shared-ui — 共享样式入口 */
+
+/* 基础布局样式 */
+.page-container {
+  padding: 24px;
+}
+
+.page-container__title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* 通用间距 */
+.gap-sm {
+  gap: 8px;
+}
+
+.gap-md {
+  gap: 16px;
+}
+
+.gap-lg {
+  gap: 24px;
+}

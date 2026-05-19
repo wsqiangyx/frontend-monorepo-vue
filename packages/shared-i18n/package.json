@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "vue-i18n": "catalog:",
-    "naive-ui": "catalog:"
+    "tdesign-vue-next": "catalog:"
   },
   "peerDependencies": {
     "vue": "catalog:"

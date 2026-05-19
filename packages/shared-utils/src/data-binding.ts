@@ -5,8 +5,8 @@
 // 纯 TypeScript，无框架依赖，React 和 Vue 3 可直接复用。
 // ============================================================================
 
-import type { DataSource, DataSourceType } from '../types/data-source'
-import type { DataBinding, DataResult } from '../types/data-binding'
+import type { DataSource, DataSourceType } from './types/data-source'
+import type { DataBinding, DataResult } from './types/data-binding'
 
 /**
  * 按点号路径访问嵌套属性，支持数组索引语法。

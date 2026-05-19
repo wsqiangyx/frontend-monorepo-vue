@@ -19,14 +19,18 @@
     "test:coverage": "node ../../scripts/vitest.cjs run --coverage"
   },
   "dependencies": {
+    "@antv/g2": "catalog:",
     "@repo/design-tokens": "workspace:*",
-    "@repo/shared-utils": "workspace:*",
     "@repo/shared-i18n": "workspace:*",
     "@repo/shared-service": "workspace:*",
-    "naive-ui": "catalog:",
-    "@antv/g2": "catalog:"
+    "@repo/shared-utils": "workspace:*",
+    "tdesign-vue-next": "catalog:"
   },
   "peerDependencies": {
     "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "5.2.4",
+    "vite": "8.0.10"
   }
 }

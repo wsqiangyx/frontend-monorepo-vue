@@ -41,3 +41,5 @@ export function sleep(ms: number): Promise<void> {
 export * from './id'
 export * from './clamp'
 export * from './data-binding'
+export type * from './types/data-source'
+export type * from './types/data-binding'
