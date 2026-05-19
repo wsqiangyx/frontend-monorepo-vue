@@ -1,20 +1,14 @@
 import { defineProject } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
-import { resolve } from 'node:path'
-
-const root = resolve(__dirname, '../..')
+import UnoCSS from 'unocss/vite'
+import { appAliasEntries, sharedPackageAliases } from './paths.config'
 
 export default defineProject({
-  plugins: [vue()],
+  plugins: [vue(), UnoCSS()],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
-      '@repo/shared-ui': resolve(root, 'packages/shared-ui/src'),
-      '@repo/shared-i18n': resolve(root, 'packages/shared-i18n/src'),
-      '@repo/shared-utils': resolve(root, 'packages/shared-utils/src'),
-      '@repo/shared-service': resolve(root, 'packages/shared-service/src'),
-      '@repo/design-tokens': resolve(root, 'packages/design-tokens/src'),
-      '@repo/shared-workflow': resolve(root, 'packages/shared-workflow/src'),
+      ...appAliasEntries,
+      ...sharedPackageAliases,
     },
   },
   test: {

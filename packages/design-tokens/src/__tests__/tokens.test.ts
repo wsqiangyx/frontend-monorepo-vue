@@ -11,6 +11,7 @@ describe('tokens', () => {
     const vars = tokensToCssVars()
     expect(vars['color-primary']).toBe('#1677ff')
     expect(vars['color-neutral-900']).toBe('#1f1f1f')
+    expect(vars['spacing-0-5']).toBe('2px')
     expect(vars['spacing-4']).toBe('16px')
     expect(vars['font-font-family-base']).toContain('Segoe UI')
     expect(vars['font-font-size-base']).toBe('16px')

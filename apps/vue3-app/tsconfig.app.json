@@ -1,13 +1,35 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@repo/shared-ui": ["../../packages/shared-ui/src"],
+      "@repo/shared-ui/*": ["../../packages/shared-ui/src/*"],
+      "@repo/shared-i18n": ["../../packages/shared-i18n/src"],
+      "@repo/shared-i18n/*": ["../../packages/shared-i18n/src/*"],
+      "@repo/shared-utils": ["../../packages/shared-utils/src"],
+      "@repo/shared-utils/*": ["../../packages/shared-utils/src/*"],
+      "@repo/shared-service": ["../../packages/shared-service/src"],
+      "@repo/shared-service/*": ["../../packages/shared-service/src/*"],
+      "@repo/design-tokens": ["../../packages/design-tokens/src"],
+      "@repo/design-tokens/*": ["../../packages/design-tokens/src/*"],
+      "@repo/shared-workflow": ["../../packages/shared-workflow/src"],
+      "@repo/shared-workflow/*": ["../../packages/shared-workflow/src/*"]
     },
     "types": ["vite/client"]
   },
-  "include": ["src/**/*.ts", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "../../packages/shared-ui/src/**/*.ts",
+    "../../packages/shared-ui/src/**/*.vue",
+    "../../packages/shared-i18n/src/**/*.ts",
+    "../../packages/shared-utils/src/**/*.ts",
+    "../../packages/shared-service/src/**/*.ts",
+    "../../packages/design-tokens/src/**/*.ts",
+    "../../packages/design-tokens/src/**/*.css",
+    "../../packages/shared-workflow/src/**/*.ts"
+  ],
   "exclude": ["src/**/*.test.ts", "src/**/__tests__/**", "src/test/**"]
 }

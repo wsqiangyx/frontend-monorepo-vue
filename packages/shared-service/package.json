@@ -21,6 +21,14 @@
     "./mock": {
       "types": "./dist/mock/index.d.ts",
       "default": "./dist/mock/index.js"
+    },
+    "./mock/browser": {
+      "types": "./dist/mock/browser.d.ts",
+      "default": "./dist/mock/browser.js"
+    },
+    "./mock/server": {
+      "types": "./dist/mock/server.d.ts",
+      "default": "./dist/mock/server.js"
     }
   },
   "scripts": {

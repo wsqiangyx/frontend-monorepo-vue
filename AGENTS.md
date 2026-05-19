@@ -52,6 +52,8 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 - 对应的 `paths.config.ts`
 - 对应的 `tsconfig.app.json`
 
+`apps/vue3-app/paths.config.ts` 是当前 app alias 的单一真相源。
+
 ### 5. 组件库选定 TDesign Vue Next
 
 - `design-tokens` 输出 TDesign CSS 变量契约
@@ -64,7 +66,7 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 - `./tokens.css`、`./tdesign-theme`、`./uno-preset` 为正式导出路径
 - 不要在 app 内复制 token 逻辑
 
-### 7. `shared-service/mock-setup` 仅限开发/测试环境
+### 7. `@repo/shared-service/mock/browser` 仅限开发/测试环境
 
 - Mock 不是演示附件，而是平台初始化、登录、菜单、权限的正式替身数据来源
 - 生产构建时 Tree Shaking 剔除
@@ -75,7 +77,7 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 ### `apps/vue3-app`
 
 - Vue3 + TDesign 应用壳
-- 启动链：环境校验 → Mock → tokens.css → i18n → Router/Store → 挂载
+- 启动链：环境校验 → Mock → design tokens 注入 → i18n → Router/Pinia → 挂载
 - 主题通过 `t-config-provider` 接入
 
 ### `packages/design-tokens`
@@ -100,10 +102,10 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 
 ### `packages/shared-ui`
 
-- Vue3 UI 组件、图表组件、布局 Hooks
+- Vue3 UI 组件封装
 - 基于 TDesign 二次封装
 
 ### `packages/shared-workflow`
 
-- 工作流引擎
-- Vue 组件封装 bpmn-js
+- 工作流引擎基础契约
+- Vue 组件封装属于后续阶段能力

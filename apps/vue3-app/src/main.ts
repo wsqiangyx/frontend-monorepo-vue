@@ -1,28 +1,19 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import { createRouter, createWebHistory } from 'vue-router'
-import TDesign from 'tdesign-vue-next'
-import 'tdesign-vue-next/es/style/index.css'
+import 'virtual:uno.css'
 
-import { createVueI18n } from '@repo/shared-i18n'
-import App from './App.vue'
+import { ensureDesignTokensLoaded } from './bootstrap/design-tokens'
+import { validateEnv } from './bootstrap/env'
+import { setupMock } from './bootstrap/mock'
+import { createAppRuntime } from './bootstrap/runtime'
 
-const i18n = createVueI18n()
+async function bootstrap() {
+  validateEnv()
+  await setupMock()
+  ensureDesignTokensLoaded()
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      component: () => import('./views/Home.vue'),
-    },
-  ],
-})
+  const { app, router } = createAppRuntime()
+  await router.push('/')
+  await router.isReady()
+  app.mount('#app')
+}
 
-const app = createApp(App)
-
-app.use(TDesign)
-app.use(i18n)
-app.use(createPinia())
-app.use(router)
-app.mount('#app')
+void bootstrap()
