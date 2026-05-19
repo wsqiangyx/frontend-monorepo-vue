@@ -8,7 +8,7 @@ export interface PlatformMenuNode {
   path?: string
   routeName?: string
   type: MenuNodeType
-  order: number
+  order?: number
   hidden?: boolean
   disabled?: boolean
   affix?: boolean
@@ -25,7 +25,7 @@ export interface PlatformRouteMeta {
   hidden?: boolean
   affix?: boolean
   keepAlive?: boolean
-  requiresAuth: boolean
+  requiresAuth?: boolean
   permissionCodes?: string[]
   menuKey?: string
   activeMenu?: string
@@ -62,7 +62,7 @@ export function flattenMenuNodes(nodes: PlatformMenuNode[]): PlatformMenuNode[] 
 
 export function sortMenuNodes(nodes: PlatformMenuNode[]): PlatformMenuNode[] {
   return [...nodes]
-    .sort((a, b) => a.order - b.order)
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
     .map((node) => (node.children ? { ...node, children: sortMenuNodes(node.children) } : node))
 }
 

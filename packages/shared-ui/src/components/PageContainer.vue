@@ -1,14 +1,24 @@
 <template>
-  <n-layout-content :style="{ padding: '24px' }">
-    <n-h3 v-if="title" style="margin: 0 0 16px">{{ title }}</n-h3>
+  <div class="page-container">
+    <h3 v-if="title" class="page-container__title">{{ title }}</h3>
     <slot />
-  </n-layout-content>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { NLayoutContent, NH3 } from 'naive-ui'
-
 defineProps<{
   title?: string
 }>()
 </script>
+
+<style scoped>
+.page-container {
+  padding: 24px;
+}
+
+.page-container__title {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 600;
+}
+</style>

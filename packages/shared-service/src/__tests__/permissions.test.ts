@@ -4,7 +4,10 @@ import {
   hasPermission,
   hasAnyPermission,
   hasAllPermissions,
+  asPermissionCode,
 } from '../permissions'
+
+const pc = asPermissionCode
 
 describe('createPermissionSet', () => {
   it('should create empty set by default', () => {
@@ -13,32 +16,32 @@ describe('createPermissionSet', () => {
   })
 
   it('should create set from codes', () => {
-    const set = createPermissionSet(['user:read', 'user:write'])
+    const set = createPermissionSet([pc('user:read'), pc('user:write')])
     expect(set.codes.size).toBe(2)
   })
 })
 
 describe('hasPermission', () => {
-  const set = createPermissionSet(['user:read', 'user:write'])
+  const set = createPermissionSet([pc('user:read'), pc('user:write')])
 
   it('should return true for existing permission', () => {
-    expect(hasPermission(set, 'user:read')).toBe(true)
+    expect(hasPermission(set, pc('user:read'))).toBe(true)
   })
 
   it('should return false for missing permission', () => {
-    expect(hasPermission(set, 'admin:delete')).toBe(false)
+    expect(hasPermission(set, pc('admin:delete'))).toBe(false)
   })
 })
 
 describe('hasAnyPermission', () => {
-  const set = createPermissionSet(['user:read', 'user:write'])
+  const set = createPermissionSet([pc('user:read'), pc('user:write')])
 
   it('should return true if any permission matches', () => {
-    expect(hasAnyPermission(set, ['admin:delete', 'user:read'])).toBe(true)
+    expect(hasAnyPermission(set, [pc('admin:delete'), pc('user:read')])).toBe(true)
   })
 
   it('should return false if no permission matches', () => {
-    expect(hasAnyPermission(set, ['admin:delete', 'admin:create'])).toBe(false)
+    expect(hasAnyPermission(set, [pc('admin:delete'), pc('admin:create')])).toBe(false)
   })
 
   it('should return false for empty codes', () => {
@@ -47,14 +50,14 @@ describe('hasAnyPermission', () => {
 })
 
 describe('hasAllPermissions', () => {
-  const set = createPermissionSet(['user:read', 'user:write', 'role:read'])
+  const set = createPermissionSet([pc('user:read'), pc('user:write'), pc('role:read')])
 
   it('should return true if all permissions match', () => {
-    expect(hasAllPermissions(set, ['user:read', 'user:write'])).toBe(true)
+    expect(hasAllPermissions(set, [pc('user:read'), pc('user:write')])).toBe(true)
   })
 
   it('should return false if any permission is missing', () => {
-    expect(hasAllPermissions(set, ['user:read', 'admin:delete'])).toBe(false)
+    expect(hasAllPermissions(set, [pc('user:read'), pc('admin:delete')])).toBe(false)
   })
 
   it('should return true for empty codes', () => {
