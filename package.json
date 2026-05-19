@@ -36,7 +36,7 @@
     ]
   },
   "devDependencies": {
-    "@commitlint/cli": "20.5.2",
+    "@commitlint/cli": "20.5.3",
     "@commitlint/config-conventional": "20.5.0",
     "@eslint/js": "9.39.4",
     "@unocss/preset-attributify": "66.6.8",
