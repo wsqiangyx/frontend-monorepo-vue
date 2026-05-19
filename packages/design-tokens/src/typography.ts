@@ -13,7 +13,7 @@ export const typography = {
   },
   fontSize: {
     xs: '12px', // 辅助文本、标签
-    sm: '14px', // 正文（Ant Design 默认）
+    sm: '14px', // 正文（Naive UI 默认）
     base: '16px', // 基准字号
     lg: '18px', // 小标题
     xl: '20px', // 标题

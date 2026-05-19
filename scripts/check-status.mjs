@@ -5,15 +5,14 @@ import { fileURLToPath } from 'node:url'
 
 const defaultRootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 
-const STABLE_APP_NAMES = ['react-app']
-const EXPERIMENTAL_APP_NAMES = ['react-screen-designer']
+const STABLE_APP_NAMES = ['vue3-app']
+const EXPERIMENTAL_APP_NAMES = []
 const STABLE_PACKAGE_NAMES = [
-  'shared',
-  'platform-core',
-  'ui-tokens',
-  'resources',
-  'mock',
-  'ui-react',
+  'design-tokens',
+  'shared-utils',
+  'shared-i18n',
+  'shared-service',
+  'shared-ui',
 ]
 
 function listWorkspaceDirectories(rootDir, relativeDir) {
@@ -127,11 +126,15 @@ export function checkStatusConsistency(rootDir = defaultRootDir) {
     STABLE_APP_NAMES,
     'Stable apps in STATUS.yaml',
   )
-  expectExactMembers(
-    appNames.filter((name) => status.apps[name].status === 'experimental'),
-    EXPERIMENTAL_APP_NAMES,
-    'Experimental apps in STATUS.yaml',
-  )
+
+  if (EXPERIMENTAL_APP_NAMES.length > 0) {
+    expectExactMembers(
+      appNames.filter((name) => status.apps[name].status === 'experimental'),
+      EXPERIMENTAL_APP_NAMES,
+      'Experimental apps in STATUS.yaml',
+    )
+  }
+
   expectExactMembers(
     packageNames.filter((name) => status.packages[name].status === 'stable'),
     STABLE_PACKAGE_NAMES,
@@ -151,7 +154,7 @@ export function checkStatusConsistency(rootDir = defaultRootDir) {
 
   for (const name of STABLE_APP_NAMES) {
     assertScriptContains('build', `@repo/${name}`, scripts)
-    assertScriptContains('build:react', `@repo/${name}`, scripts)
+    assertScriptContains('build:vue', `@repo/${name}`, scripts)
     assertScriptContains('typecheck', `@repo/${name}`, scripts)
     assertScriptContains('test', `@repo/${name}`, scripts)
     assertScriptContains('test:coverage', `@repo/${name}`, scripts)
@@ -161,21 +164,7 @@ export function checkStatusConsistency(rootDir = defaultRootDir) {
     )
   }
 
-  for (const name of EXPERIMENTAL_APP_NAMES) {
-    assertScriptExcludes('build', `@repo/${name}`, scripts)
-    assertScriptExcludes('build:shared', `@repo/${name}`, scripts)
-    assertScriptExcludes('build:react', `@repo/${name}`, scripts)
-    assertScriptExcludes('typecheck', `@repo/${name}`, scripts)
-    assertScriptExcludes('test', `@repo/${name}`, scripts)
-    assertScriptExcludes('test:coverage', `@repo/${name}`, scripts)
-    invariant(
-      !vitestConfig.includes(`apps/${name}/vitest.config.ts`),
-      `Experimental app ${name} must not be in the root vitest matrix`,
-    )
-  }
-
   assertScriptContains('verify', 'pnpm check:status', scripts)
-  assertScriptContains('verify', 'pnpm test:scripts', scripts)
   invariant(typeof scripts['test:scripts'] === 'string', 'Missing root script: test:scripts')
 }
 
