@@ -32,7 +32,7 @@ function findRouteAndScreen(routeId: string) {
 export const routeHandlers = [
   // GET /api/screens/:screenId/routes
   http.get(/\/api\/screens\/([^/]+)\/routes$/, ({ params }) => {
-    const screenId = params.screenId as string
+    const screenId = params[0] as string
     const screen = screens.find((s) => s.id === screenId)
     if (!screen) return jsonResponse(fail('NOT_FOUND', '页面不存在'), 404)
     return jsonResponse(success(screen.routes))
@@ -40,7 +40,7 @@ export const routeHandlers = [
 
   // POST /api/screens/:screenId/routes
   http.post(/\/api\/screens\/([^/]+)\/routes$/, async ({ params, request }) => {
-    const screenId = params.screenId as string
+    const screenId = params[0] as string
     const screen = screens.find((s) => s.id === screenId)
     if (!screen) return jsonResponse(fail('NOT_FOUND', '页面不存在'), 404)
 
@@ -61,7 +61,7 @@ export const routeHandlers = [
 
   // PUT /api/routes/:id
   http.put(/\/api\/routes\/([^/]+)$/, async ({ params, request }) => {
-    const id = params.id as string
+    const id = params[0] as string
     const found = findRouteAndScreen(id)
     if (!found) return jsonResponse(fail('NOT_FOUND', '路由不存在'), 404)
 
@@ -72,7 +72,7 @@ export const routeHandlers = [
 
   // DELETE /api/routes/:id
   http.delete(/\/api\/routes\/([^/]+)$/, ({ params }) => {
-    const id = params.id as string
+    const id = params[0] as string
     const found = findRouteAndScreen(id)
     if (!found) return jsonResponse(fail('NOT_FOUND', '路由不存在'), 404)
 

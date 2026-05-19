@@ -26,9 +26,9 @@ export const sharedMessages: Messages = {
 const allLocales: Locale[] = ['zh-CN', 'en-US']
 
 export function mergeMessages(...messageSets: Messages[]): Messages {
-  const result: Messages = {} as Messages
+  const result = {} as Messages
   for (const locale of allLocales) {
-    result[locale] = messageSets.reduce(
+    result[locale] = messageSets.reduce<Messages[Locale]>(
       (acc, set) => ({ ...acc, ...set[locale] }),
       {} as Messages[Locale],
     )

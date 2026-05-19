@@ -70,27 +70,20 @@ export const authHandlers = [
     const body = (await request.json()) as Record<string, unknown>
     const persona = resolvePersonaFromRequest(request)
 
-    persona.displayName = (body.displayName as string) ?? persona.name
-    persona.email = (body.email as string) ?? persona.email
-    persona.phone = (body.phone as string) ?? persona.phone
-    persona.department = (body.department as string) ?? persona.department
-    persona.locale = (body.locale as 'zh-CN' | 'en-US') ?? persona.locale
-    persona.themePreference =
-      (body.themePreference as 'system' | 'light' | 'dark') ?? persona.themePreference
-
     return jsonResponse(
       success({
         id: persona.id,
         name: persona.name,
-        displayName: persona.displayName,
-        email: persona.email,
-        phone: persona.phone,
+        displayName: (body.displayName as string) ?? persona.displayName,
+        email: (body.email as string) ?? persona.email,
+        phone: (body.phone as string) ?? persona.phone,
         role: persona.role,
         roleLabel: persona.roleLabel,
-        department: persona.department,
+        department: (body.department as string) ?? persona.department,
         lastLoginAt: persona.lastLoginAt,
-        locale: persona.locale,
-        themePreference: persona.themePreference,
+        locale: (body.locale as 'zh-CN' | 'en-US') ?? persona.locale,
+        themePreference:
+          (body.themePreference as 'system' | 'light' | 'dark') ?? persona.themePreference,
       }),
     )
   }),

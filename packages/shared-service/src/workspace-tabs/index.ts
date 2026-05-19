@@ -15,7 +15,7 @@ export function createTab(
   overrides: Partial<WorkspaceTab> & Pick<WorkspaceTab, 'key' | 'routeName' | 'path'>,
 ): WorkspaceTab {
   return {
-    title: overrides.key,
+    title: overrides.routeName,
     closable: true,
     affix: false,
     keepAlive: false,
@@ -24,7 +24,7 @@ export function createTab(
 }
 
 export function closeTab(tabs: WorkspaceTab[], key: string): WorkspaceTab[] {
-  return tabs.filter((tab) => tab.key !== key || !tab.closable)
+  return tabs.filter((tab) => !(tab.key === key && tab.closable))
 }
 
 export function findTabByKey(tabs: WorkspaceTab[], key: string): WorkspaceTab | undefined {

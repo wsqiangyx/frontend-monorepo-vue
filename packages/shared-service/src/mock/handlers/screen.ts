@@ -131,7 +131,7 @@ export const screenHandlers = [
 
   // GET /api/screens/:id
   http.get(/\/api\/screens\/([^/]+)$/, ({ params }) => {
-    const id = params.id as string
+    const id = params[0] as string
     const screen = findScreen(id)
     if (!screen) return jsonResponse(fail('NOT_FOUND', '页面不存在'), 404)
     return jsonResponse(success(screen))
@@ -176,7 +176,7 @@ export const screenHandlers = [
 
   // PUT /api/screens/:id
   http.put(/\/api\/screens\/([^/]+)$/, async ({ params, request }) => {
-    const id = params.id as string
+    const id = params[0] as string
     const screen = findScreen(id)
     if (!screen) return jsonResponse(fail('NOT_FOUND', '页面不存在'), 404)
 
@@ -187,7 +187,7 @@ export const screenHandlers = [
 
   // DELETE /api/screens/:id
   http.delete(/\/api\/screens\/([^/]+)$/, ({ params }) => {
-    const id = params.id as string
+    const id = params[0] as string
     const index = screens.findIndex((s) => s.id === id)
     if (index === -1) return jsonResponse(fail('NOT_FOUND', '页面不存在'), 404)
     screens.splice(index, 1)
@@ -196,7 +196,7 @@ export const screenHandlers = [
 
   // POST /api/screens/:id/copy
   http.post(/\/api\/screens\/([^/]+)\/copy$/, ({ params }) => {
-    const id = params.id as string
+    const id = params[0] as string
     const source = findScreen(id)
     if (!source) return jsonResponse(fail('NOT_FOUND', '页面不存在'), 404)
 
@@ -221,7 +221,7 @@ export const screenHandlers = [
 
   // POST /api/screens/:id/publish
   http.post(/\/api\/screens\/([^/]+)\/publish$/, ({ params }) => {
-    const id = params.id as string
+    const id = params[0] as string
     const screen = findScreen(id)
     if (!screen) return jsonResponse(fail('NOT_FOUND', '页面不存在'), 404)
 
