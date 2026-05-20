@@ -32,6 +32,25 @@ const getWeather = tool(
   },
 )
 
+// 自定义一个询问时间的工具
+const getTime = tool(
+  () => {
+    const now = new Date()
+    const year = now.getFullYear()
+    const month = now.getMonth() + 1
+    const day = now.getDate()
+    const hour = now.getHours()
+    const minute = now.getMinutes()
+    const second = now.getSeconds()
+    return `当前时间是：${year}-${month}-${day} ${hour}:${minute}:${second}`
+  },
+  {
+    name: 'get_time',
+    description: '查询当前时间',
+    schema: z.object({}),
+  },
+)
+
 // 第四步：创建 Agent
 
 // openai只需传入模型的标识即可
@@ -50,7 +69,7 @@ const model = new ChatOpenAI('gpt-5.4', {
 // 创建的模型作为model参数传给createAgent
 const agent = createAgent({
   model,
-  tools: [getWeather],
+  tools: [getWeather, getTime],
 })
 
 /*// 第五步：调用 Agent 并输出结果
@@ -68,7 +87,7 @@ for await (const chunk of stream) {
 }*/
 // 第五步：调用 Agent 并输出结果
 const stream = await agent.stream(
-  { messages: [{ role: 'user', content: '北京今天天气怎么样？' }] },
+  { messages: [{ role: 'user', content: '现在几点了？' }] },
   { streamMode: 'messages' },
 )
 
