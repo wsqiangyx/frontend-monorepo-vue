@@ -20,8 +20,9 @@
 ## 环境变量
 
 - [ ] 已复制 `.env.example` 到 `apps/vue3-app/.env.development`
-- [ ] 已配置 `VITE_API_BASE_URL` 和 `VITE_PROXY_TARGET`
-- [ ] 已确认 `VITE_ENABLE_MSW` 设置（开发环境默认 `true`）
+- [ ] 已确认 `VITE_API_BASE_URL` 配置（默认 `/api`）
+- [ ] 已确认 `VITE_ENABLE_MSW` 设置（开发环境默认 `true`，mock 优先）
+- [ ] 如需对接真实后端，已配置 `VITE_PROXY_TARGET` 并设置 `VITE_ENABLE_MSW=false`
 
 ## 文档
 

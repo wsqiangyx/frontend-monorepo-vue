@@ -404,7 +404,8 @@ vue3-app → shared-ui → shared-service → shared-utils
 ## 13. 环境变量管理
 
 - 统一 `VITE_` 前缀
-- 必需变量：`VITE_API_BASE_URL`, `VITE_PROXY_TARGET`
+- 必需变量：`VITE_API_BASE_URL`
+- 可选变量：`VITE_PROXY_TARGET`（仅在需要对接真实后端时配置）
 - 宿主拥有独立的 `.env.development` / `.env.production`
 - 共享包不得直接读取宿主私有环境变量；当前 `shared-utils` 中使用的 `VITE_` 变量视为临时实现，长期应通过初始化函数注入
 
@@ -414,7 +415,8 @@ vue3-app → shared-ui → shared-service → shared-utils
 
 - API 封装于 `shared-service/modules/`
 - 响应格式 `{ code, msg, data }`
-- 开发环境通过 Vite proxy 转发 `/admin-api`，Mock 环境提供模拟数据
+- 开发环境默认启用 MSW Mock（`VITE_ENABLE_MSW` 默认 `true`），关闭后通过 Vite proxy 转发 `/api` 到 `VITE_PROXY_TARGET`
+- 支持混合模式：MSW 开启 + 配置代理，有 mock handler 的接口走 mock，其余透传到后端
 - 功能对齐分阶段：系统管理 → 监控工具 → 工作流
 
 ---
@@ -423,7 +425,7 @@ vue3-app → shared-ui → shared-service → shared-utils
 
 - 独立构建，Nginx 作为基础镜像
 - Dockerfile 多阶段构建
-- Nginx 配置示例（SPA history 模式）：
+- Nginx 配置示例（SPA history 模式，`/api` 为后端接口前缀，按实际情况调整）：
 
 ```nginx
 server {
@@ -435,7 +437,7 @@ server {
         try_files $uri $uri/ /index.html;
     }
 
-    location /admin-api/ {
+    location /api/ {
         proxy_pass http://backend:48080;
         proxy_set_header Host $host;
     }
@@ -474,7 +476,7 @@ server {
 1. 保持 `shared-service/types.ts` 中的通用响应格式，或替换为你自己的类型定义
 2. 替换 `shared-service/modules/` 下的 API 实现，保持函数签名不变或按需调整
 3. 同步更新 `shared-service/mock/handlers/` 中的 Mock 处理器以匹配新接口
-4. 更新 `VITE_PROXY_TARGET` 环境变量指向新后端地址
+4. 设置 `VITE_PROXY_TARGET` 环境变量指向新后端地址，并在 `.env` 中设置 `VITE_ENABLE_MSW=false`
 
 ### 16.4 多租户或数据权限扩展
 

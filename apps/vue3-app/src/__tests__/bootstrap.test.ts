@@ -5,7 +5,6 @@ describe('app bootstrap helpers', () => {
     vi.resetModules()
     document.head.innerHTML = ''
     vi.stubEnv('VITE_API_BASE_URL', '/api')
-    vi.stubEnv('VITE_PROXY_TARGET', 'http://localhost:48080')
     vi.stubEnv('DEV', true)
   })
 
