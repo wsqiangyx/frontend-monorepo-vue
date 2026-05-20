@@ -7,19 +7,32 @@ packages:
   - 'apps/*'
 
 catalog:
-  '@antv/g2': ^5.2
-  '@vitejs/plugin-vue': ^5.2
-  '@vue/test-utils': ^2.4
-  axios: ^1.7
-  bpmn-js: ^17.0
-  msw: ^2.5
-  'tdesign-vue-next': ^1.12.0
-  pinia: ^2.2
-  vite: ^8.0
+  # —— 运行时核心依赖 ——
   vue: ^3.5
-  'vue-i18n': ^10
-  'vue-router': ^4.4
-  'vue-tsc': ^2.2
+  pinia: ^2.2
+  vue-router: ^4.4
+  vue-i18n: ^10
+
+  # —— UI 组件库 ——
+  tdesign-vue-next: ^1.12.0
+
+  # —— 构建工具 ——
+  vite: ^8.0
+  vue-tsc: ^2.2
+  '@vitejs/plugin-vue': ^5.2
+
+  # —— 网络 & Mock ——
+  axios: ^1.7
+  msw: ^2.5
+
+  # —— 测试 ——
+  '@vue/test-utils': ^2.4
+
+  # —— 图表 ——
+  '@antv/g2': ^5.2
+
+  # —— 工作流 ——
+  bpmn-js: ^17.0
 
 overrides:
   axios: '1.16.0'

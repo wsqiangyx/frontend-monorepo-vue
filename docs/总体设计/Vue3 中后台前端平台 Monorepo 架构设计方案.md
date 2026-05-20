@@ -1,7 +1,7 @@
 # Vue3 中后台前端平台 Monorepo 架构设计方案
 
-**文档版本**：v1.3  
-**修订日期**：2026-05-19  
+**文档版本**：v1.4  
+**修订日期**：2026-05-20  
 **适用仓库**：`vue-admin-monorepo`  
 **文档性质**：唯一上游概要设计
 
@@ -55,7 +55,7 @@
 
 仓库采用以下架构风格复合而成：
 
-- **Workspace Monorepo**：通过 pnpm workspace 划分包边界，使用 catalog 统一版本
+- **Workspace Monorepo**：通过 pnpm workspace 划分包边界，使用 catalog + overrides 统一版本
 - **Clean Architecture**：分离平台规则、宿主装配、UI 呈现与外部适配
 - **Ports / Adapters**：共享契约定义核心端口，Mock、TDesign、HTTP 等作为适配器
 - **Composition Root**：宿主应用 (`vue3-app`) 负责最终装配，不反向定义共享规则
@@ -64,14 +64,14 @@
 
 重大架构决策记录于 `docs/decisions/`，当前包含以下已采纳决策。
 
-| 决策编号 | 标题                                        | 决策日期   | 状态      | 正式文档 |
-| -------- | ------------------------------------------- | ---------- | --------- | -------- |
-| ADR-001  | `shared-service` 中的纯函数禁止依赖 UI 框架 | 2026-05-10 | ✅ 已采纳 | 已完成   |
-| ADR-002  | 正式宿主为 Vue3 单应用壳                    | 2026-05-19 | ✅ 已采纳 | 已完成   |
-| ADR-003  | 选用 TDesign Vue Next 作为 Vue3 宿主组件库  | 2026-05-19 | ✅ 已采纳 | 已完成   |
-| ADR-004  | 采用 pnpm catalog 统一管理核心依赖版本      | 2026-05-18 | ✅ 已采纳 | 已完成   |
-| ADR-005  | 工作流引擎以 `shared-workflow` 独立包交付   | 2026-05-18 | ✅ 已采纳 | 已完成   |
-| ADR-006  | 文档修订与审核机制                          | 2026-05-19 | ✅ 已采纳 | 已完成   |
+| 决策编号 | 标题                                               | 决策日期   | 状态      | 正式文档 |
+| -------- | -------------------------------------------------- | ---------- | --------- | -------- |
+| ADR-001  | `shared-service` 中的纯函数禁止依赖 UI 框架        | 2026-05-10 | ✅ 已采纳 | 已完成   |
+| ADR-002  | 正式宿主为 Vue3 单应用壳                           | 2026-05-19 | ✅ 已采纳 | 已完成   |
+| ADR-003  | 选用 TDesign Vue Next 作为 Vue3 宿主组件库         | 2026-05-19 | ✅ 已采纳 | 已完成   |
+| ADR-004  | 采用 pnpm catalog + overrides 统一管理核心依赖版本 | 2026-05-18 | ✅ 已采纳 | 已完成   |
+| ADR-005  | 工作流引擎以 `shared-workflow` 独立包交付          | 2026-05-18 | ✅ 已采纳 | 已完成   |
+| ADR-006  | 文档修订与审核机制                                 | 2026-05-19 | ✅ 已采纳 | 已完成   |
 
 > **补充说明**：ADR-002 和 ADR-003 为技术栈选择的根基性决策，建议在仓库初始化后一个月内完成正式决策文档的编写，记录完整的背景、替代方案评估及决策后果。
 
@@ -94,11 +94,11 @@
 **替代方案**：Naive UI（主题定制灵活性稍弱）、Ant Design Vue（维护节奏及体积考量）、Element Plus（主题定制灵活性稍弱）。  
 **后果**：`design-tokens` 输出 TDesign CSS 变量契约，`shared-ui` 组件基于 TDesign 封装，国际化使用 `t-config-provider` + TDesign locale。
 
-#### ADR-004：pnpm catalog 统一版本管理
+#### ADR-004：pnpm catalog + overrides 统一版本管理
 
 **背景**：多包 Monorepo 需避免依赖版本碎片化。  
-**决策**：在 `pnpm-workspace.yaml` 定义 `catalog`，核心依赖版本统一声明，子包使用 `"tdesign-vue-next": "catalog:"` 引用。  
-**后果**：单点升级，版本冲突显性化。
+**决策**：在 `pnpm-workspace.yaml` 定义 `catalog`（版本范围）和 `overrides`（精确固定）两套机制。核心运行时与构建依赖声明在 `catalog` 中，子包使用 `"tdesign-vue-next": "catalog:"` 引用；关键工具链通过 `overrides` 全局固定版本。  
+**后果**：单点升级，版本冲突显性化，构建工具版本全局一致。
 
 #### ADR-005：工作流独立包交付
 
@@ -379,23 +379,24 @@ vue3-app → shared-ui → shared-service → shared-utils
 
 ## 12. 技术栈与版本管理
 
-通过 `pnpm-workspace.yaml` 的 `catalog` 统一版本，子包使用 `"tdesign-vue-next": "catalog:"` 引用。
+通过 `pnpm-workspace.yaml` 的 `catalog` 统一版本，子包使用 `"vue": "catalog:"` 引用（当前全仓已统一采用 catalog 协议，根配置与 manifest 保持一致）。
 
-| 类别     | 技术栈           | 版本                                 |
-| -------- | ---------------- | ------------------------------------ |
-| 框架     | Vue3             | ^3.5                                 |
-| 构建     | Vite, TypeScript | ^6.0, ^5.6                           |
-| 状态管理 | Pinia            | ^2.2                                 |
-| 路由     | vue-router       | ^4.4                                 |
-| 组件库   | TDesign Vue Next | ^1.12（以 catalog 实际锁定版本为准） |
-| 国际化   | vue-i18n         | ^10                                  |
-| 样式     | UnoCSS           | ^0.65                                |
-| 图表     | AntV G2          | ^5.2                                 |
-| 请求     | Axios            | ^1.7                                 |
-| Mock     | MSW              | ^2.5                                 |
-| 工作流   | bpmn-js          | ^17.0                                |
+| 类别     | 技术栈                            | 版本（catalog 声明） |
+| -------- | --------------------------------- | -------------------- |
+| 框架     | Vue3                              | ^3.5                 |
+| 状态管理 | Pinia                             | ^2.2                 |
+| 路由     | vue-router                        | ^4.4                 |
+| 国际化   | vue-i18n                          | ^10                  |
+| 组件库   | TDesign Vue Next                  | ^1.12.0              |
+| 构建     | Vite, @vitejs/plugin-vue, vue-tsc | ^8.0, ^5.2, ^2.2     |
+| 样式     | UnoCSS                            | ^0.65                |
+| 图表     | AntV G2                           | ^5.2                 |
+| 网络     | Axios                             | ^1.7                 |
+| Mock     | MSW                               | ^2.5                 |
+| 测试     | Vitest, @vue/test-utils           | ^2.4                 |
+| 工作流   | bpmn-js                           | ^17.0                |
 
-> **说明**：表中版本范围为 `pnpm-workspace.yaml` 中 `catalog` 的声明，实际安装版本以 `pnpm-lock.yaml` 锁定为准。
+> **说明**：表中版本为 `pnpm-workspace.yaml` 中 `catalog` 的声明值，实际安装版本以 `pnpm-lock.yaml` 锁定为准。TypeScript (6.0.3)、ESLint (9.39.4)、Vitest (4.1.5)、Sass (1.99.0)、UnoCSS (66.6.8)、jsdom (29.1.0)、Axios (1.16.0) 通过 `overrides` 全局锁定。
 
 所有包当前 `private: true`，不发布 npm，Changesets 仅生成 CHANGELOG。
 
@@ -530,6 +531,13 @@ apps:
 - 根 `STATUS.yaml`
 
 ### 18.3 本版主要变更
+
+**v1.4** (2026-05-20)：
+
+- §3.1、§3.2、§12 更新：版本管理机制从仅 `catalog` 扩展为 `catalog + overrides` 双机制说明
+- §12 技术栈表重构：对齐 React 版本文档格式，精简为单版本列 + `overrides` 脚注；补齐 Vue3 技术栈全貌
+- `pnpm-workspace.yaml` 同步 React 版本组织风格，增加分类注释分组
+- ADR-004 同步补充 `overrides` 机制说明与变更流程
 
 **v1.3** (2026-05-19)：
 
