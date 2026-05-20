@@ -30,7 +30,8 @@
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "5.2.4",
-    "vite": "8.0.10"
+    "@vitejs/plugin-vue": "catalog:",
+    "vite": "catalog:",
+    "vue-tsc": "catalog:"
   }
 }

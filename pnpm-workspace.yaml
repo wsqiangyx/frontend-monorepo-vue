@@ -1,21 +1,25 @@
 # pnpm workspace 定义 — Vue3 中后台前端平台 Monorepo
 
 packages:
+  # 共享包
   - 'packages/*'
+  # 应用包
   - 'apps/*'
 
 catalog:
   '@antv/g2': ^5.2
-  '@vue/runtime-core': ^3.5
+  '@vitejs/plugin-vue': ^5.2
   '@vue/test-utils': ^2.4
   axios: ^1.7
   bpmn-js: ^17.0
   msw: ^2.5
   'tdesign-vue-next': ^1.12.0
   pinia: ^2.2
+  vite: ^8.0
   vue: ^3.5
   'vue-i18n': ^10
   'vue-router': ^4.4
+  'vue-tsc': ^2.2
 
 overrides:
   axios: '1.16.0'

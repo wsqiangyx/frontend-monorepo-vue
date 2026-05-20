@@ -12,5 +12,7 @@
   "compilerOptions": {
     // 根目录不产出任何编译结果，仅用于 IDE 类型服务和根级类型检查。
     "noEmit": true
-  }
+  },
+  // 各 workspace 有独立的 tsconfig，根 tsconfig 无需包含任何源文件。
+  "files": []
 }
