@@ -1,7 +1,5 @@
 // ============================================================================
-// @repo/shared-service — 请求/响应契约
-// ============================================================================
-// 类型从本包统一导出，本模块提供向后兼容别名。
+// @repo/shared-service — 请求模块
 // ============================================================================
 export type {
   ApiResponse as PlatformApiResponse,
@@ -10,3 +8,8 @@ export type {
 } from '../types'
 
 export { createPlatformError, isSuccessResponse, createPageResult } from '../types'
+
+export { createHttpClient, setRequestCallbacks } from './http'
+export type { RequestCallbacks } from './http'
+export { getAccessToken, getRefreshToken, setToken, removeToken } from './token'
+export type { TokenType } from './token'

@@ -9,6 +9,20 @@ import { screenHandlers } from './screen'
 import { shareHandlers } from './share'
 import { systemMetaHandlers } from './system-meta'
 import { userHandlers } from './user'
+import { systemUserHandlers } from './system-user'
+import { systemRoleHandlers } from './system-role'
+import { systemMenuHandlers } from './system-menu'
+import { systemDeptHandlers } from './system-dept'
+import { systemPostHandlers } from './system-post'
+import { systemDictHandlers } from './system-dict'
+import { systemNoticeHandlers } from './system-notice'
+import { systemErrorCodeHandlers } from './system-error-code'
+import { systemTenantHandlers } from './system-tenant'
+import { systemSmsHandlers } from './system-sms'
+import { systemMailHandlers } from './system-mail'
+import { systemOperateLogHandlers } from './system-operate-log'
+import { systemLoginLogHandlers } from './system-login-log'
+import { systemOAuth2Handlers } from './system-oauth2'
 
 export const handlers = [
   ...userHandlers,
@@ -22,4 +36,18 @@ export const handlers = [
   ...screenHandlers,
   ...routeHandlers,
   ...shareHandlers,
+  ...systemUserHandlers,
+  ...systemRoleHandlers,
+  ...systemMenuHandlers,
+  ...systemDeptHandlers,
+  ...systemPostHandlers,
+  ...systemDictHandlers,
+  ...systemNoticeHandlers,
+  ...systemErrorCodeHandlers,
+  ...systemTenantHandlers,
+  ...systemSmsHandlers,
+  ...systemMailHandlers,
+  ...systemOperateLogHandlers,
+  ...systemLoginLogHandlers,
+  ...systemOAuth2Handlers,
 ]
