@@ -62,6 +62,11 @@ const getTime = tool(
 // 千问模型需要先创建一个模型实例
 const model = new ChatOpenAI('gpt-5.4', {
   apiKey: OPENAI_API_KEY,
+  // 强制开启 JSON 输出模式
+  // 注意：这只是保证输出是合法 JSON，不保证字段结构
+  responsesFormat: { type: 'json_object' },
+  // 指定使用的 API Base URL
+  // 适用于代理服务器或兼容 OpenAI 接口的服务
   configuration: {
     baseURL: API_URL,
   },
@@ -87,7 +92,7 @@ for await (const chunk of stream) {
 }*/
 // 第五步：调用 Agent 并输出结果
 const stream = await agent.stream(
-  { messages: [{ role: 'user', content: '现在几点了？' }] },
+  { messages: [{ role: 'user', content: '用100字介绍一下Typescript' }] },
   { streamMode: 'messages' },
 )
 
@@ -97,3 +102,4 @@ for await (const [message] of stream) {
   // 逐字符输出，实现打字机效果
   process.stdout.write(message.content as string)
 }
+process.stdout.write('\n')
