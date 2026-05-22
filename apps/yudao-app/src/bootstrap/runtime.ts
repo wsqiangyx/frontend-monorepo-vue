@@ -9,9 +9,10 @@ import App from '../App.vue'
 import { staticRoutes, asyncRoutes } from '../router'
 import { setupRouterGuard } from '../router/guard'
 import { setupDirectives } from '../directives'
+import { appMessages } from '../locales'
 
 export function createAppRuntime() {
-  const i18n = createVueI18n()
+  const i18n = createVueI18n(undefined, appMessages)
   const pinia = createPinia()
   const router = createRouter({
     history: createWebHistory(),

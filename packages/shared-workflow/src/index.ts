@@ -3,3 +3,8 @@
 
 export type { WorkflowEngineStatus, BpmnModel } from './core/types'
 export { WORKFLOW_STATUS } from './core/types'
+
+export { BpmnProcessDesigner } from './components/BpmnProcessDesigner'
+export { BpmnProcessViewer } from './components/BpmnProcessViewer'
+export { SimpleFlowDesigner } from './components/SimpleFlowDesigner'
+export type { FlowNode, FlowCondition, FlowData } from './components/SimpleFlowDesigner'

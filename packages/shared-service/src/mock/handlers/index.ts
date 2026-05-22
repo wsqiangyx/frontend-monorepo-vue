@@ -23,6 +23,15 @@ import { systemMailHandlers } from './system-mail'
 import { systemOperateLogHandlers } from './system-operate-log'
 import { systemLoginLogHandlers } from './system-login-log'
 import { systemOAuth2Handlers } from './system-oauth2'
+import { infraCodegenHandlers } from './infra-codegen'
+import { infraFileHandlers, infraFileConfigHandlers } from './infra-file'
+import { infraJobHandlers } from './infra-job'
+import { infraConfigHandlers } from './infra-config'
+import { infraRedisHandlers } from './infra-redis'
+import { infraApiAccessLogHandlers } from './infra-api-access-log'
+import { infraApiErrorLogHandlers } from './infra-api-error-log'
+import { bpmHandlers } from './bpm-model'
+import { payAppHandlers } from './pay-app'
 
 export const handlers = [
   ...userHandlers,
@@ -50,4 +59,14 @@ export const handlers = [
   ...systemOperateLogHandlers,
   ...systemLoginLogHandlers,
   ...systemOAuth2Handlers,
+  ...infraCodegenHandlers,
+  ...infraFileHandlers,
+  ...infraFileConfigHandlers,
+  ...infraJobHandlers,
+  ...infraConfigHandlers,
+  ...infraRedisHandlers,
+  ...infraApiAccessLogHandlers,
+  ...infraApiErrorLogHandlers,
+  ...bpmHandlers,
+  ...payAppHandlers,
 ]

@@ -1,4 +1,5 @@
 import 'virtual:uno.css'
+import './styles/index.css'
 
 import { ensureDesignTokensLoaded } from './bootstrap/design-tokens'
 import { validateEnv } from './bootstrap/env'

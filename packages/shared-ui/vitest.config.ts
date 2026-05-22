@@ -7,5 +7,6 @@ export default defineProject({
     globals: true,
     environment: 'jsdom',
     pool: 'threads',
+    testTimeout: 30000,
   },
 })

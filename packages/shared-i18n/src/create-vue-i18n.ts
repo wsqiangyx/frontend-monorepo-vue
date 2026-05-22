@@ -1,9 +1,10 @@
 import { createI18n } from 'vue-i18n'
 import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY } from './constants'
-import { sharedMessages as messages } from './messages'
-import type { Locale } from './types'
+import { sharedMessages } from './messages'
+import { mergeMessages } from './messages'
+import type { Locale, Messages } from './types'
 
-export function createVueI18n(locale?: Locale) {
+export function createVueI18n(locale?: Locale, appMessages?: Messages) {
   let savedLocale: Locale = DEFAULT_LOCALE
   try {
     if (typeof localStorage !== 'undefined') {
@@ -13,6 +14,7 @@ export function createVueI18n(locale?: Locale) {
     // Ignore storage read failures
   }
   const currentLocale = locale || savedLocale
+  const messages = appMessages ? mergeMessages(sharedMessages, appMessages) : sharedMessages
 
   return createI18n({
     legacy: false,
