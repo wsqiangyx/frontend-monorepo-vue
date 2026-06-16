@@ -22,7 +22,7 @@ catalog:
   '@vitejs/plugin-vue': ^5.2
 
   # —— 网络 & Mock ——
-  axios: ^1.7
+  axios: ^1.18
   msw: ^2.5
 
   # —— 测试 ——
