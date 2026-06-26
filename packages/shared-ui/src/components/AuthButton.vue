@@ -1,12 +1,11 @@
 <template>
-  <t-button v-if="visible" v-bind="$attrs">
+   <el-button v-if="visible" v-bind="$attrs">
     <slot />
-  </t-button>
+   </el-button>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Button as TButton } from 'tdesign-vue-next'
 import { hasPermission, asPermissionCode } from '@repo/shared-service'
 import type { PermissionSet } from '@repo/shared-service'
 

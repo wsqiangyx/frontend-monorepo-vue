@@ -30,20 +30,14 @@
     "test:coverage": "pnpm --filter @repo/shared-utils test:coverage && pnpm --filter @repo/shared-i18n test:coverage && pnpm --filter @repo/shared-service test:coverage && pnpm --filter @repo/design-tokens test:coverage && pnpm --filter @repo/shared-ui test:coverage && pnpm --filter @repo/shared-workflow test:coverage && pnpm --filter @repo/vue3-app test:coverage",
     "prepare": "husky"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "msw"
-    ]
-  },
   "devDependencies": {
-    "@commitlint/cli": "21.0.1",
-    "@commitlint/config-conventional": "21.0.1",
-    "@eslint/js": "10.0.1",
-    "@unocss/preset-attributify": "66.6.8",
-    "@unocss/preset-uno": "66.6.8",
-    "@unocss/reset": "66.6.8",
-    "@vitest/coverage-v8": "4.1.7",
-    "eslint": "10.4.0",
+    "@commitlint/cli": "20.5.2",
+    "@commitlint/config-conventional": "20.5.0",
+    "@eslint/js": "9.39.4",
+    "tailwindcss": "^4",
+    "@tailwindcss/vite": "^4",
+    "@vitest/coverage-v8": "4.1.5",
+    "eslint": "9.39.4",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.9.1",
     "husky": "9.1.7",
@@ -57,9 +51,8 @@
     "stylelint-order": "8.1.1",
     "stylelint-scss": "7.1.1",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.59.4",
-    "unocss": "66.6.8",
-    "vitest": "4.1.7",
-    "vue-tsc": "3.3.1"
+    "typescript-eslint": "8.59.1",
+    "vitest": "4.1.5",
+    "vue-tsc": "2.2.0"
   }
 }

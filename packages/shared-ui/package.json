@@ -24,7 +24,7 @@
     "@repo/shared-i18n": "workspace:*",
     "@repo/shared-service": "workspace:*",
     "@repo/shared-utils": "workspace:*",
-    "tdesign-vue-next": "catalog:"
+    "element-plus": "catalog:"
   },
   "peerDependencies": {
     "vue": "catalog:"

@@ -1,13 +1,12 @@
 <template>
-  <t-menu :value="activeKey" @change="handleMenuClick">
-    <t-menu-item v-for="item in props.options" :key="item.value" :value="item.value">
+   <el-menu :default-active="activeKey" @select="handleMenuClick">
+     <el-menu-item v-for="item in props.options" :key="item.value" :index="item.value">
       {{ item.label }}
-    </t-menu-item>
-  </t-menu>
+     </el-menu-item>
+   </el-menu>
 </template>
 
 <script setup lang="ts">
-import { Menu as TMenu, MenuItem as TMenuItem } from 'tdesign-vue-next'
 import type { SidebarMenuItem } from '../types'
 
 const props = defineProps<{

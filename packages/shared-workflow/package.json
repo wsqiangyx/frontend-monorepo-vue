@@ -22,7 +22,7 @@
     "@repo/design-tokens": "workspace:*",
     "@repo/shared-utils": "workspace:*",
     "bpmn-js": "catalog:",
-    "tdesign-vue-next": "catalog:"
+    "element-plus": "catalog:"
   },
   "peerDependencies": {
     "vue": "catalog:"

@@ -1,33 +1,33 @@
 <template>
-  <t-layout class="admin-layout">
-    <t-aside>
+   <el-container class="admin-layout">
+     <el-aside width="auto">
       <SidebarMenu :options="menuOptions" :active-key="activeMenu" @update:active-key="onMenuChange" />
-    </t-aside>
-    <t-layout>
-      <t-header>
+     </el-aside>
+     <el-container>
+       <el-header>
         <div class="admin-header">
           <span class="admin-header__title">Vue3 Admin</span>
         </div>
-      </t-header>
-      <t-content>
+       </el-header>
+       <el-main>
         <PageContainer title="首页">
-          <t-card>
-            <t-result
+           <el-card>
+             <el-result
               status="success"
               title="应用已启动"
               description="Vue3 中后台前端平台脚手架已成功运行。"
             >
               <template #extra>
-                <AuthButton theme="primary" @click="handleAction">
+                 <AuthButton type="primary" @click="handleAction">
                   权限按钮示例
                 </AuthButton>
               </template>
-            </t-result>
-          </t-card>
+             </el-result>
+           </el-card>
         </PageContainer>
-      </t-content>
-    </t-layout>
-  </t-layout>
+       </el-main>
+     </el-container>
+   </el-container>
 </template>
 
 <script setup lang="ts">

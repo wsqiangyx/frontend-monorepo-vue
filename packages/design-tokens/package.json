@@ -13,27 +13,24 @@
     "./tokens.css": {
       "default": "./dist/tokens.css"
     },
+    "./tailwind-theme": {
+      "default": "./dist/tailwind-theme.css"
+    },
     "./css": {
       "types": "./dist/to-css.d.ts",
       "default": "./dist/to-css.js"
     },
-    "./tdesign-theme": {
-      "types": "./dist/theme/tdesign.d.ts",
-      "default": "./dist/theme/tdesign.js"
-    },
-    "./uno-preset": {
-      "types": "./dist/uno-preset.d.ts",
-      "default": "./dist/uno-preset.js"
+    "./element-plus-theme": {
+      "types": "./dist/theme/element-plus.d.ts",
+      "default": "./dist/theme/element-plus.js"
     }
   },
   "scripts": {
-    "build": "node -e \"import{rmSync}from'node:fs';rmSync('dist',{recursive:true,force:true});rmSync('tsconfig.build.tsbuildinfo',{force:true});\" && tsc -p tsconfig.build.json && node -e \"import{cpSync,mkdirSync}from'node:fs';mkdirSync('dist',{recursive:true});cpSync('src/tokens.css','dist/tokens.css');\"",
+    "build": "node -e \"import{rmSync}from'node:fs';rmSync('dist',{recursive:true,force:true});rmSync('tsconfig.build.tsbuildinfo',{force:true});\" && tsc -p tsconfig.build.json && node -e \"import{cpSync,mkdirSync}from'node:fs';mkdirSync('dist',{recursive:true});cpSync('src/tokens.css','dist/tokens.css');cpSync('src/tailwind-theme.css','dist/tailwind-theme.css');\"",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "node ../../scripts/vitest.cjs run",
     "test:watch": "node ../../scripts/vitest.cjs",
     "test:coverage": "node ../../scripts/vitest.cjs run --coverage"
   },
-  "devDependencies": {
-    "tdesign-vue-next": "catalog:"
-  }
+  "devDependencies": {}
 }
