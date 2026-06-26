@@ -14,5 +14,5 @@ export {
   setStoredThemePreference,
   subscribeToSystemThemeChange,
 } from './system'
-export { createTDesignThemeVars, generateTDesignThemeCss } from './tdesign'
-export type { TDesignThemeVars } from './tdesign'
+export { createElementPlusThemeVars, generateElementPlusThemeCss } from './element-plus'
+export type { ElementPlusThemeVars } from './element-plus'

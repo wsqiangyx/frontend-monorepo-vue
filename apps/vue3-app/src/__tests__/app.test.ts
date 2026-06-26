@@ -4,7 +4,7 @@ import { createRouter, createMemoryHistory } from 'vue-router'
 import { createPinia, setActivePinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
 import { nextTick } from 'vue'
-import TDesign from 'tdesign-vue-next'
+import ElementPlus from 'element-plus'
 
 import App from '../App.vue'
 import Home from '../views/Home.vue'
@@ -41,7 +41,7 @@ async function mountApp() {
 
   const wrapper = mount(App, {
     global: {
-      plugins: [router, i18n, pinia, TDesign],
+      plugins: [router, i18n, pinia, ElementPlus],
     },
   })
 
@@ -86,20 +86,20 @@ describe('vue3-app', () => {
     const wrapper = await mountApp()
 
     const html = wrapper.html()
-    expect(html).toContain('t-layout')
-    expect(html).toContain('t-layout__sider')
-    expect(html).toContain('t-layout__header')
-    expect(html).toContain('t-layout__content')
+    expect(html).toContain('el-container')
+    expect(html).toContain('el-aside')
+    expect(html).toContain('el-header')
+    expect(html).toContain('el-main')
     expect(html).toContain('admin-header__title')
     expect(html).toContain('Vue3 Admin')
 
     wrapper.unmount()
   })
 
-  it('wraps content with TDesign config provider', async () => {
+  it('wraps content with Element Plus config provider', async () => {
     const wrapper = await mountApp()
 
-    const configProvider = wrapper.findComponent({ name: 'TConfigProvider' })
+    const configProvider = wrapper.findComponent({ name: 'ElConfigProvider' })
     expect(configProvider.exists()).toBe(true)
 
     wrapper.unmount()

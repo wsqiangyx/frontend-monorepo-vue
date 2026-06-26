@@ -38,6 +38,10 @@ export function sleep(ms: number): Promise<void> {
 }
 
 // --- 可视化大屏设计器工具 ---
+
+// --- HTTP 客户端抽象 ---
+export * from './http-client'
+
 export * from './id'
 export * from './clamp'
 export * from './data-binding'

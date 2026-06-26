@@ -14,16 +14,17 @@ catalog:
   vue-i18n: ^10
 
   # —— UI 组件库 ——
-  tdesign-vue-next: ^1.12.0
+  element-plus: ^2.9
 
   # —— 构建工具 ——
   vite: ^8.0
   vue-tsc: ^2.2
   '@vitejs/plugin-vue': ^5.2
 
-  # —— 网络 & Mock ——
-  axios: ^1.7
+  # —— 网络 & Mock & 服务端状态 ——
+  ky: ^1
   msw: ^2.5
+  '@tanstack/vue-query': ^5
 
   # —— 测试 ——
   '@vue/test-utils': ^2.4
@@ -35,10 +36,12 @@ catalog:
   bpmn-js: ^17.0
 
 overrides:
-  axios: '1.16.0'
   eslint: '9.39.4'
   jsdom: '29.1.0'
   sass: '1.99.0'
   typescript: '6.0.3'
-  unocss: '66.6.8'
   vitest: '4.1.5'
+
+pnpm:
+  onlyBuiltDependencies:
+    - msw

@@ -15,12 +15,12 @@
 
 这是一个以 Vue3 为正式宿主应用的前端 monorepo 基线仓库，不是单应用仓库，也不是通用前端空白模板。
 
-- `apps/vue3-app`：Vue3 + TDesign 应用壳
-- `packages/shared-utils`：通用工具（格式化、校验、存储、请求、日志）
-- `packages/shared-i18n`：国际化运行时与语言包（vue-i18n）
+- `apps/vue3-app`：Vue3 + Element Plus 应用壳
+- `packages/shared-utils`：通用工具（格式化、校验、存储、HttpClient 抽象、日志）
+- `packages/shared-i18n`：国际化运行时与语言包（vue-i18n + Element Plus locale）
 - `packages/shared-service`：服务层（API 封装、Token 管理、权限判断、Mock）
-- `packages/design-tokens`：设计令牌（CSS 变量、TDesign 主题适配、UnoCSS 预设）
-- `packages/shared-ui`：Vue3 UI 组件封装
+- `packages/design-tokens`：设计令牌（CSS 变量、Element Plus 主题适配、Tailwind @theme 注入）
+- `packages/shared-ui`：Vue3 + Element Plus UI 组件封装
 - `packages/shared-workflow`：工作流引擎基础契约
 
 ## 当前架构
@@ -76,7 +76,7 @@ vue-admin-monorepo/
 ├─ apps/
 │  └─ vue3-app/                  # Vue3 正式宿主应用
 ├─ packages/
-│  ├─ design-tokens/             # 设计令牌与 TDesign 主题
+│  ├─ design-tokens/             # 设计令牌与 Element Plus 主题
 │  ├─ shared-utils/              # 通用工具
 │  ├─ shared-i18n/               # 国际化运行时
 │  ├─ shared-service/            # 服务层与 Mock
@@ -91,10 +91,10 @@ vue-admin-monorepo/
 
 ## 关键运行时约束
 
-- 启动链（当前已落地）：环境校验 → 开发态 Mock → design tokens 注入 → i18n → Router/Pinia → 挂载
+- 启动链（当前已落地）：环境校验 → 开发态 Mock → design tokens/Tailwind CSS 注入 → i18n → Element Plus/Pinia/Router/VueQueryPlugin → 挂载
 - 开发态 Mock 统一通过 `@repo/shared-service/mock/browser` 引入
-- `design-tokens` 正式导出 `./tokens.css`、`./tdesign-theme`、`./uno-preset`
-- `shared-i18n` 使用 vue-i18n，通过 `t-config-provider` 联动
+- `design-tokens` 正式导出 `./tokens.css`、`./element-plus-theme`
+- `shared-i18n` 使用 vue-i18n，通过 `el-config-provider` 联动 Element Plus locale
 - package `exports` 继续只指向 `dist/`
 
 更完整的维护约束见 [`AGENTS.md`](./AGENTS.md)。
