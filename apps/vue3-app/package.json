@@ -22,7 +22,8 @@
     "vue-i18n": "catalog:",
     "vue-router": "catalog:",
     "pinia": "catalog:",
-    "tdesign-vue-next": "catalog:"
+    "element-plus": "catalog:",
+    "@tanstack/vue-query": "catalog:"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "catalog:",

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { createVueI18n } from '../create-vue-i18n'
-import { resolveTDesignLocale } from '../tdesign-locale'
+import { resolveElementPlusLocale } from '../element-plus-locale'
 import { normalizeLocale, detectBrowserLocale } from '../locale'
 import { DEFAULT_LOCALE, LOCALE_STORAGE_KEY } from '../constants'
 import { createTranslator } from '../translator'
@@ -19,22 +19,22 @@ describe('shared-i18n', () => {
     })
   })
 
-  describe('resolveTDesignLocale', () => {
+  describe('resolveElementPlusLocale', () => {
     const mockLocaleMap = {
       'zh-CN': { name: 'zh-CN' },
       'en-US': { name: 'en-US' },
     }
 
     it('returns correct locale for zh-CN', () => {
-      expect(resolveTDesignLocale('zh-CN', mockLocaleMap)).toEqual({ name: 'zh-CN' })
+      expect(resolveElementPlusLocale('zh-CN', mockLocaleMap)).toEqual({ name: 'zh-CN' })
     })
 
     it('returns correct locale for en-US', () => {
-      expect(resolveTDesignLocale('en-US', mockLocaleMap)).toEqual({ name: 'en-US' })
+      expect(resolveElementPlusLocale('en-US', mockLocaleMap)).toEqual({ name: 'en-US' })
     })
 
     it('falls back to zh-CN for unknown locale', () => {
-      expect(resolveTDesignLocale('fr-FR' as 'zh-CN' | 'en-US', mockLocaleMap)).toEqual({
+      expect(resolveElementPlusLocale('fr-FR' as 'zh-CN' | 'en-US', mockLocaleMap)).toEqual({
         name: 'zh-CN',
       })
     })

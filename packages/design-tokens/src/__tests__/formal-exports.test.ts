@@ -1,13 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import packageJson from '../../package.json'
 import { generateCssVarsString, tokensToCssVars } from '../to-css'
-import { createTDesignThemeVars } from '../theme/tdesign'
+import { createElementPlusThemeVars } from '../theme/element-plus'
 
 describe('@repo/design-tokens formal export surfaces', () => {
   it('declares the documented subpath exports in package.json', () => {
     expect(packageJson.exports).toHaveProperty('./tokens.css')
-    expect(packageJson.exports).toHaveProperty('./tdesign-theme')
-    expect(packageJson.exports).toHaveProperty('./uno-preset')
+    expect(packageJson.exports).toHaveProperty('./element-plus-theme')
   })
 
   it('provides token css content that can back the tokens.css subpath export', () => {
@@ -28,10 +27,10 @@ describe('@repo/design-tokens formal export surfaces', () => {
     expect(packageJson.exports['./tokens.css'].default).toBe('./dist/tokens.css')
   })
 
-  it('provides TDesign theme content for the tdesign-theme subpath export', () => {
-    const vars = createTDesignThemeVars()
+  it('provides Element Plus theme content for the element-plus-theme subpath export', () => {
+    const vars = createElementPlusThemeVars()
 
-    expect(vars['--td-brand-color']).toBe('#1677ff')
-    expect(vars['--td-radius-medium']).toBeDefined()
+    expect(vars['--el-color-primary']).toBe('#1677ff')
+    expect(vars['--el-border-radius-base']).toBeDefined()
   })
 })

@@ -40,7 +40,6 @@
   },
   "dependencies": {
     "@repo/shared-utils": "workspace:*",
-    "axios": "catalog:",
     "msw": "catalog:"
   }
 }

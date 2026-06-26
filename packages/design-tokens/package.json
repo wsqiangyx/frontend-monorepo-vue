@@ -17,13 +17,9 @@
       "types": "./dist/to-css.d.ts",
       "default": "./dist/to-css.js"
     },
-    "./tdesign-theme": {
-      "types": "./dist/theme/tdesign.d.ts",
-      "default": "./dist/theme/tdesign.js"
-    },
-    "./uno-preset": {
-      "types": "./dist/uno-preset.d.ts",
-      "default": "./dist/uno-preset.js"
+    "./element-plus-theme": {
+      "types": "./dist/theme/element-plus.d.ts",
+      "default": "./dist/theme/element-plus.js"
     }
   },
   "scripts": {
@@ -33,7 +29,5 @@
     "test:watch": "node ../../scripts/vitest.cjs",
     "test:coverage": "node ../../scripts/vitest.cjs run --coverage"
   },
-  "devDependencies": {
-    "tdesign-vue-next": "catalog:"
-  }
+  "devDependencies": {}
 }
