@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="字典管理">
     <t-row :gutter="16">
       <!-- 字典类型列表 -->
@@ -117,7 +117,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'SystemDict' })
@@ -195,14 +195,14 @@ async function handleSubmitType() {
   const url = isEditType.value ? '/api/system/dict-type/update' : '/api/system/dict-type/create'
   const method = isEditType.value ? 'PUT' : 'POST'
   await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(typeForm) })
-  MessagePlugin.success(isEditType.value ? '修改成功' : '新增成功')
+  ElMessage.success(isEditType.value ? '修改成功' : '新增成功')
   typeDialogVisible.value = false
   fetchTypes()
 }
 
 async function handleDeleteType(row: Record<string, unknown>) {
   await fetch(`/api/system/dict-type/delete?id=${row.id}`, { method: 'DELETE' })
-  MessagePlugin.success('删除成功')
+  ElMessage.success('删除成功')
   fetchTypes()
 }
 
@@ -222,14 +222,14 @@ async function handleSubmitData() {
   const url = isEditData.value ? '/api/system/dict-data/update' : '/api/system/dict-data/create'
   const method = isEditData.value ? 'PUT' : 'POST'
   await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dataForm) })
-  MessagePlugin.success(isEditData.value ? '修改成功' : '新增成功')
+  ElMessage.success(isEditData.value ? '修改成功' : '新增成功')
   dataDialogVisible.value = false
   if (selectedType.value) fetchDictData(selectedType.value.type as string)
 }
 
 async function handleDeleteData(row: Record<string, unknown>) {
   await fetch(`/api/system/dict-data/delete?id=${row.id}`, { method: 'DELETE' })
-  MessagePlugin.success('删除成功')
+  ElMessage.success('删除成功')
   if (selectedType.value) fetchDictData(selectedType.value.type as string)
 }
 

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="流程模型">
     <t-card>
       <!-- 搜索栏 -->
@@ -83,7 +83,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 import { BpmnProcessDesigner } from '@repo/shared-workflow'
 
@@ -133,7 +133,7 @@ async function fetchData() {
       tableData.value = json.data ?? []
     }
   } catch {
-    MessagePlugin.error('加载模型列表失败')
+    ElMessage.error('加载模型列表失败')
   } finally {
     loading.value = false
   }
@@ -168,21 +168,21 @@ async function onDesignerSaved(xml: string) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: designModelId.value, bpmnXml: xml }),
     })
-    MessagePlugin.success('保存成功')
+    ElMessage.success('保存成功')
     designerVisible.value = false
     fetchData()
   } catch {
-    MessagePlugin.error('保存失败')
+    ElMessage.error('保存失败')
   }
 }
 
 async function handleDeploy(row: Record<string, unknown>) {
   try {
     await fetch(`/api/bpm/model/deploy?id=${row.id}`, { method: 'POST' })
-    MessagePlugin.success('部署成功')
+    ElMessage.success('部署成功')
     fetchData()
   } catch {
-    MessagePlugin.error('部署失败')
+    ElMessage.error('部署失败')
   }
 }
 
@@ -197,21 +197,21 @@ async function handleSubmit() {
     const method = formData.value.id ? 'PUT' : 'POST'
     const url = formData.value.id ? '/api/bpm/model/update' : '/api/bpm/model/create'
     await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData.value) })
-    MessagePlugin.success('保存成功')
+    ElMessage.success('保存成功')
     formVisible.value = false
     fetchData()
   } catch {
-    MessagePlugin.error('保存失败')
+    ElMessage.error('保存失败')
   }
 }
 
 async function handleDelete(row: Record<string, unknown>) {
   try {
     await fetch(`/api/bpm/model/delete?id=${row.id}`, { method: 'DELETE' })
-    MessagePlugin.success('删除成功')
+    ElMessage.success('删除成功')
     fetchData()
   } catch {
-    MessagePlugin.error('删除失败')
+    ElMessage.error('删除失败')
   }
 }
 

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <t-dialog v-model:visible="visible" header="导入表" :width="800" :footer="false">
     <!-- 搜索栏 -->
     <t-form :data="queryParams" label-width="68px" class="mb-4">
@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 
 const emit = defineEmits<{ success: [] }>()
 
@@ -82,7 +82,7 @@ async function fetchList() {
       dbTableList.value = json.data ?? []
     }
   } catch {
-    MessagePlugin.error('加载表列表失败')
+    ElMessage.error('加载表列表失败')
   } finally {
     dbTableLoading.value = false
   }
@@ -117,11 +117,11 @@ async function handleImport() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ dataSourceConfigId: 0, tableNames: selectedNames.value }),
     })
-    MessagePlugin.success('导入成功')
+    ElMessage.success('导入成功')
     emit('success')
     close()
   } catch {
-    MessagePlugin.error('导入失败')
+    ElMessage.error('导入失败')
   } finally {
     dbTableLoading.value = false
   }

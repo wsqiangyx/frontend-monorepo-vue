@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="在线用户">
     <t-card>
       <t-table :data="tableData" :columns="columns" :loading="loading" row-key="id">
@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'OnlineUser' })
@@ -44,7 +44,7 @@ async function fetchData() {
 
 async function handleKick(row: Record<string, unknown>) {
   await fetch(`/api/system/online-user/kick?id=${row.id}`, { method: 'DELETE' })
-  MessagePlugin.success('强制下线成功')
+  ElMessage.success('强制下线成功')
   fetchData()
 }
 

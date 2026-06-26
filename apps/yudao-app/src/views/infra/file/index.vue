@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="文件管理">
     <t-card>
       <!-- 搜索栏 -->
@@ -84,7 +84,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'InfraFile' })
@@ -143,7 +143,7 @@ async function fetchData() {
       pagination.total = json.data.total ?? 0
     }
   } catch {
-    MessagePlugin.error('加载文件列表失败')
+    ElMessage.error('加载文件列表失败')
   } finally {
     loading.value = false
   }
@@ -190,11 +190,11 @@ async function doUpload() {
       formData.append('file', file.raw ?? file)
       await fetch('/api/infra/file/upload', { method: 'POST', body: formData })
     }
-    MessagePlugin.success('上传成功')
+    ElMessage.success('上传成功')
     uploadVisible.value = false
     fetchData()
   } catch {
-    MessagePlugin.error('上传失败')
+    ElMessage.error('上传失败')
   } finally {
     uploading.value = false
   }
@@ -203,30 +203,30 @@ async function doUpload() {
 async function handleDelete(row: Record<string, unknown>) {
   try {
     await fetch(`/api/infra/file/delete?id=${row.id}`, { method: 'DELETE' })
-    MessagePlugin.success('删除成功')
+    ElMessage.success('删除成功')
     fetchData()
   } catch {
-    MessagePlugin.error('删除失败')
+    ElMessage.error('删除失败')
   }
 }
 
 async function handleBatchDelete() {
   try {
     await fetch(`/api/infra/file/delete-list?ids=${checkedIds.value.join(',')}`, { method: 'DELETE' })
-    MessagePlugin.success('批量删除成功')
+    ElMessage.success('批量删除成功')
     checkedIds.value = []
     fetchData()
   } catch {
-    MessagePlugin.error('批量删除失败')
+    ElMessage.error('批量删除失败')
   }
 }
 
 async function copyUrl(url: string) {
   try {
     await navigator.clipboard.writeText(url)
-    MessagePlugin.success('复制成功')
+    ElMessage.success('复制成功')
   } catch {
-    MessagePlugin.error('复制失败')
+    ElMessage.error('复制失败')
   }
 }
 

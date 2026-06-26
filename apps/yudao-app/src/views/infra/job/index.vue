@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="定时任务">
     <t-card>
       <!-- 搜索栏 -->
@@ -125,7 +125,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'InfraJob' })
@@ -192,7 +192,7 @@ async function fetchData() {
       pagination.total = json.data.total ?? 0
     }
   } catch {
-    MessagePlugin.error('加载任务列表失败')
+    ElMessage.error('加载任务列表失败')
   } finally {
     loading.value = false
   }
@@ -240,11 +240,11 @@ async function handleSubmit() {
     const method = formData.value.id ? 'PUT' : 'POST'
     const url = formData.value.id ? '/api/infra/job/update' : '/api/infra/job/create'
     await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData.value) })
-    MessagePlugin.success('保存成功')
+    ElMessage.success('保存成功')
     formVisible.value = false
     fetchData()
   } catch {
-    MessagePlugin.error('保存失败')
+    ElMessage.error('保存失败')
   }
 }
 
@@ -252,31 +252,31 @@ async function handleChangeStatus(row: Record<string, unknown>) {
   const newStatus = row.status === 1 ? 0 : 1
   try {
     await fetch(`/api/infra/job/update-status?id=${row.id}&status=${newStatus}`, { method: 'PUT' })
-    MessagePlugin.success('状态修改成功')
+    ElMessage.success('状态修改成功')
     fetchData()
   } catch {
-    MessagePlugin.error('状态修改失败')
+    ElMessage.error('状态修改失败')
   }
 }
 
 async function handleDelete(row: Record<string, unknown>) {
   try {
     await fetch(`/api/infra/job/delete?id=${row.id}`, { method: 'DELETE' })
-    MessagePlugin.success('删除成功')
+    ElMessage.success('删除成功')
     fetchData()
   } catch {
-    MessagePlugin.error('删除失败')
+    ElMessage.error('删除失败')
   }
 }
 
 async function handleBatchDelete() {
   try {
     await fetch(`/api/infra/job/delete-list?ids=${checkedIds.value.join(',')}`, { method: 'DELETE' })
-    MessagePlugin.success('批量删除成功')
+    ElMessage.success('批量删除成功')
     checkedIds.value = []
     fetchData()
   } catch {
-    MessagePlugin.error('批量删除失败')
+    ElMessage.error('批量删除失败')
   }
 }
 
@@ -284,9 +284,9 @@ async function handleMore(command: string, row: Record<string, unknown>) {
   if (command === 'run') {
     try {
       await fetch(`/api/infra/job/trigger?id=${row.id}`, { method: 'PUT' })
-      MessagePlugin.success('执行成功')
+      ElMessage.success('执行成功')
     } catch {
-      MessagePlugin.error('执行失败')
+      ElMessage.error('执行失败')
     }
   } else if (command === 'log') {
     await fetchJobLog(row.id as number)
@@ -301,7 +301,7 @@ async function fetchJobLog(jobId: number) {
     const json = await res.json()
     if (json.success) logData.value = json.data.items ?? []
   } catch {
-    MessagePlugin.error('加载日志失败')
+    ElMessage.error('加载日志失败')
   } finally {
     logLoading.value = false
   }

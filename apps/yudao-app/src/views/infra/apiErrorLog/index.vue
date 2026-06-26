@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="API 错误日志">
     <t-card>
       <!-- 搜索栏 -->
@@ -74,7 +74,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'InfraApiErrorLog' })
@@ -138,7 +138,7 @@ async function fetchData() {
       pagination.total = json.data.total ?? 0
     }
   } catch {
-    MessagePlugin.error('加载日志列表失败')
+    ElMessage.error('加载日志列表失败')
   } finally {
     loading.value = false
   }
@@ -166,16 +166,16 @@ function onPageChange(pageInfo: { current: number; pageSize: number }) {
 }
 
 function handleDetail(row: Record<string, unknown>) {
-  MessagePlugin.info('查看详情：' + row.id)
+  ElMessage.info('查看详情：' + row.id)
 }
 
 async function handleProcess(id: number, processStatus: number) {
   try {
     await fetch(`/api/infra/api-error-log/update-status?id=${id}&processStatus=${processStatus}`, { method: 'PUT' })
-    MessagePlugin.success(processStatus === 1 ? '已标记为已处理' : '已标记为已忽略')
+    ElMessage.success(processStatus === 1 ? '已标记为已处理' : '已标记为已忽略')
     fetchData()
   } catch {
-    MessagePlugin.error('操作失败')
+    ElMessage.error('操作失败')
   }
 }
 

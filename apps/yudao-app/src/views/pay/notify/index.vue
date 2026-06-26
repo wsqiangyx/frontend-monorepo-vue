@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="支付通知">
     <t-card>
       <t-space class="mb-4">
@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'PayNotify' })
@@ -49,7 +49,7 @@ async function fetchData() {
     const res = await fetch(`/api/pay/notify/page?${params}`)
     const json = await res.json()
     if (json.success) tableData.value = json.data.items ?? []
-  } catch { MessagePlugin.error('加载失败') } finally { loading.value = false }
+  } catch { ElMessage.error('加载失败') } finally { loading.value = false }
 }
 
 onMounted(fetchData)

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="钱包管理">
     <t-card>
       <t-tabs v-model="activeTab">
@@ -55,7 +55,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'PayWallet' })
@@ -103,13 +103,13 @@ async function fetchData() {
     if (bal.code === 0) balanceData.value = bal.data.list ?? []
     if (pkg.code === 0) packageData.value = pkg.data.list ?? []
     if (txn.code === 0) transactionData.value = txn.data.list ?? []
-  } catch { MessagePlugin.error('加载失败') } finally { loading.value = false }
+  } catch { ElMessage.error('加载失败') } finally { loading.value = false }
 }
 
-function handleAddPackage() { MessagePlugin.info('新增充值套餐') }
-function handleEditPackage(row: Record<string, unknown>) { MessagePlugin.info('编辑：' + row.name) }
+function handleAddPackage() { ElMessage.info('新增充值套餐') }
+function handleEditPackage(row: Record<string, unknown>) { ElMessage.info('编辑：' + row.name) }
 async function handleDeletePackage(row: Record<string, unknown>) {
-  try { await fetch(`/api/pay/wallet/recharge-package/delete?id=${row.id}`, { method: 'DELETE' }); MessagePlugin.success('删除成功'); fetchData() } catch { MessagePlugin.error('删除失败') }
+  try { await fetch(`/api/pay/wallet/recharge-package/delete?id=${row.id}`, { method: 'DELETE' }); ElMessage.success('删除成功'); fetchData() } catch { ElMessage.error('删除失败') }
 }
 
 onMounted(fetchData)

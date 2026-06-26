@@ -73,8 +73,8 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import type { FormInstanceFunctions } from 'tdesign-vue-next'
-import { MessagePlugin } from 'tdesign-vue-next'
+import type { FormInstance } from 'element-plus'
+import { ElMessage } from 'element-plus'
 
 defineOptions({ name: 'UserForm' })
 
@@ -85,7 +85,7 @@ const emit = defineEmits<{
 const visible = ref(false)
 const isEdit = ref(false)
 const submitting = ref(false)
-const formRef = ref<FormInstanceFunctions>()
+const formRef = ref<FormInstance>()
 
 const formData = reactive({
   id: undefined as number | undefined,
@@ -145,7 +145,7 @@ async function open(id?: number) {
         Object.assign(formData, json.data)
       }
     } catch {
-      MessagePlugin.error('获取用户信息失败')
+      ElMessage.error('获取用户信息失败')
     }
   } else {
     isEdit.value = false
@@ -183,11 +183,11 @@ async function handleSubmit() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
     })
-    MessagePlugin.success(isEdit.value ? '修改成功' : '新增成功')
+    ElMessage.success(isEdit.value ? '修改成功' : '新增成功')
     visible.value = false
     emit('success')
   } catch {
-    MessagePlugin.error(isEdit.value ? '修改失败' : '新增失败')
+    ElMessage.error(isEdit.value ? '修改失败' : '新增失败')
   } finally {
     submitting.value = false
   }

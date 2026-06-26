@@ -1,4 +1,4 @@
-﻿# 维护指南
+# 维护指南
 
 本文件面向后续维护者、自动化工具和编码代理，定义这个仓库中不应被日常修改破坏的边界。
 
@@ -64,7 +64,6 @@ app 在开发态 / 测试态通过 alias 消费源码可以接受，但 package 
 
 - CSS 变量必须继续输出为 `kebab-case`
 - `./tokens.css`、`./element-plus-theme` 为正式导出路径
-- 不要在 app 内复制 token 逻辑
 - 不要在 app 内复制 token 逻辑
 
 ### 7. `@repo/shared-service/mock/browser` 仅限开发/测试环境

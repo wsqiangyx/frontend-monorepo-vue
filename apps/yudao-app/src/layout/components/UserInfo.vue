@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { DialogPlugin, MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { useUserStore } from '@/stores/user'
 
 defineOptions({ name: 'UserInfo' })
@@ -41,19 +41,15 @@ function onUserAction({ value }: { value: string }) {
 }
 
 function handleLogout() {
-  const confirmDialog = DialogPlugin.confirm({
-    header: '提示',
-    body: '确认退出登录吗？',
-    onConfirm: async () => {
-      await userStore.logout()
-      MessagePlugin.success('已退出登录')
-      confirmDialog.destroy()
-      router.push('/login')
-    },
-    onClose: () => {
-      confirmDialog.destroy()
-    },
-  })
+  ElMessageBox.confirm('确认退出登录吗？', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
+  }).then(async () => {
+    await userStore.logout()
+    ElMessage.success('已退出登录')
+    router.push('/login')
+  }).catch(() => {})
 }
 </script>
 

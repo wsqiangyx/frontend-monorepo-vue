@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="个人中心">
     <t-row :gutter="16">
       <t-col :span="8">
@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 import { useUserStore } from '@/stores/user'
 
@@ -72,19 +72,19 @@ const passwordForm = reactive({
 })
 
 function handleSave() {
-  MessagePlugin.success('保存成功')
+  ElMessage.success('保存成功')
 }
 
 function handleChangePassword() {
   if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-    MessagePlugin.warning('两次密码不一致')
+    ElMessage.warning('两次密码不一致')
     return
   }
   if (!passwordForm.oldPassword || !passwordForm.newPassword) {
-    MessagePlugin.warning('请填写完整')
+    ElMessage.warning('请填写完整')
     return
   }
-  MessagePlugin.success('密码修改成功')
+  ElMessage.success('密码修改成功')
   passwordForm.oldPassword = ''
   passwordForm.newPassword = ''
   passwordForm.confirmPassword = ''

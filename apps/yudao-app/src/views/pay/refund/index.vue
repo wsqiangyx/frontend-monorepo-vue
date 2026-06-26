@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="退款订单">
     <t-card>
       <t-space class="mb-4">
@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'PayRefund' })
@@ -62,11 +62,11 @@ async function fetchData() {
     const res = await fetch(`/api/pay/refund/page?${params}`)
     const json = await res.json()
     if (json.success) tableData.value = json.data.items ?? []
-  } catch { MessagePlugin.error('加载失败') } finally { loading.value = false }
+  } catch { ElMessage.error('加载失败') } finally { loading.value = false }
 }
 
 function handleDetail(row: Record<string, unknown>) {
-  MessagePlugin.info('退款详情：' + row.merchantRefundNo)
+  ElMessage.info('退款详情：' + row.merchantRefundNo)
 }
 
 onMounted(fetchData)

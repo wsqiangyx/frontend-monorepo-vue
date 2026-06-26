@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="我的已办">
     <t-card>
       <!-- 搜索栏 -->
@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'BpmDoneTask' })
@@ -94,7 +94,7 @@ async function fetchData() {
       pagination.total = json.data.total ?? 0
     }
   } catch {
-    MessagePlugin.error('加载已办列表失败')
+    ElMessage.error('加载已办列表失败')
   } finally {
     loading.value = false
   }
@@ -120,7 +120,7 @@ function onPageChange(pageInfo: { current: number; pageSize: number }) {
 }
 
 function handleDetail(row: Record<string, unknown>) {
-  MessagePlugin.info('查看详情：' + row.id)
+  ElMessage.info('查看详情：' + row.id)
 }
 
 onMounted(fetchData)

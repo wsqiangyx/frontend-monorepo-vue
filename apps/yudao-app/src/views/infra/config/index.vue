@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="参数配置">
     <t-card>
       <!-- 搜索栏 -->
@@ -106,7 +106,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'InfraConfig' })
@@ -164,7 +164,7 @@ async function fetchData() {
       pagination.total = json.data.total ?? 0
     }
   } catch {
-    MessagePlugin.error('加载配置列表失败')
+    ElMessage.error('加载配置列表失败')
   } finally {
     loading.value = false
   }
@@ -212,32 +212,32 @@ async function handleSubmit() {
     const method = formData.value.id ? 'PUT' : 'POST'
     const url = formData.value.id ? '/api/infra/config/update' : '/api/infra/config/create'
     await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData.value) })
-    MessagePlugin.success('保存成功')
+    ElMessage.success('保存成功')
     formVisible.value = false
     fetchData()
   } catch {
-    MessagePlugin.error('保存失败')
+    ElMessage.error('保存失败')
   }
 }
 
 async function handleDelete(row: Record<string, unknown>) {
   try {
     await fetch(`/api/infra/config/delete?id=${row.id}`, { method: 'DELETE' })
-    MessagePlugin.success('删除成功')
+    ElMessage.success('删除成功')
     fetchData()
   } catch {
-    MessagePlugin.error('删除失败')
+    ElMessage.error('删除失败')
   }
 }
 
 async function handleBatchDelete() {
   try {
     await fetch(`/api/infra/config/delete-list?ids=${checkedIds.value.join(',')}`, { method: 'DELETE' })
-    MessagePlugin.success('批量删除成功')
+    ElMessage.success('批量删除成功')
     checkedIds.value = []
     fetchData()
   } catch {
-    MessagePlugin.error('批量删除失败')
+    ElMessage.error('批量删除失败')
   }
 }
 

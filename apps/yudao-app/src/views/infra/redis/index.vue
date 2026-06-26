@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="Redis 监控">
     <t-row :gutter="16">
       <!-- 基本信息 -->
@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'InfraRedis' })
@@ -79,7 +79,7 @@ async function fetchRedisInfo() {
       cache.value = json.data
     }
   } catch {
-    MessagePlugin.error('获取 Redis 信息失败')
+    ElMessage.error('获取 Redis 信息失败')
   }
 }
 

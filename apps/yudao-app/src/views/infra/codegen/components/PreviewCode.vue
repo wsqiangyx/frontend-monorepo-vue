@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <t-dialog v-model:visible="visible" header="代码预览" width="80%" :footer="false">
     <div v-loading="loading" class="flex gap-4" style="min-height: 400px">
       <!-- 文件目录树 -->
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 
 const visible = ref(false)
 const loading = ref(false)
@@ -94,7 +94,7 @@ async function open(id: number) {
       }
     }
   } catch {
-    MessagePlugin.error('加载预览失败')
+    ElMessage.error('加载预览失败')
   } finally {
     loading.value = false
   }
@@ -110,9 +110,9 @@ function handleNodeClick(node: { value: string; isLeaf?: boolean }) {
 async function copyCode(code: string) {
   try {
     await navigator.clipboard.writeText(code)
-    MessagePlugin.success('复制成功')
+    ElMessage.success('复制成功')
   } catch {
-    MessagePlugin.error('复制失败')
+    ElMessage.error('复制失败')
   }
 }
 

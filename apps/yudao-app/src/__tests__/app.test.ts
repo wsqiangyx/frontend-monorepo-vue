@@ -4,7 +4,7 @@ import { createRouter, createMemoryHistory } from 'vue-router'
 import { createPinia, setActivePinia } from 'pinia'
 import { createI18n } from 'vue-i18n'
 import { nextTick } from 'vue'
-import TDesign from 'tdesign-vue-next'
+import ElementPlus from 'element-plus'
 
 import App from '../App.vue'
 import Home from '../views/Home.vue'
@@ -41,7 +41,7 @@ async function mountApp() {
 
   const wrapper = mount(App, {
     global: {
-      plugins: [router, i18n, pinia, TDesign],
+      plugins: [router, i18n, pinia, ElementPlus],
     },
   })
 
@@ -62,10 +62,10 @@ describe('yudao-app', () => {
     wrapper.unmount()
   })
 
-  it('wraps content with TDesign config provider', async () => {
+  it('wraps content with Element Plus config provider', async () => {
     const wrapper = await mountApp()
 
-    const configProvider = wrapper.findComponent({ name: 'TConfigProvider' })
+    const configProvider = wrapper.findComponent({ name: 'ElConfigProvider' })
     expect(configProvider.exists()).toBe(true)
 
     wrapper.unmount()

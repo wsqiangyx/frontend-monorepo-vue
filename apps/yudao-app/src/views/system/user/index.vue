@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="用户管理">
     <t-card>
       <!-- 搜索栏 -->
@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 import UserForm from './components/UserForm.vue'
 
@@ -134,7 +134,7 @@ async function fetchData() {
       pagination.total = json.data.total ?? 0
     }
   } catch (e) {
-    MessagePlugin.error('加载用户列表失败')
+    ElMessage.error('加载用户列表失败')
   } finally {
     loading.value = false
   }
@@ -176,15 +176,15 @@ function handleEdit(row: Record<string, unknown>) {
 async function handleDelete(row: Record<string, unknown>) {
   try {
     await fetch(`/api/system/user/delete?id=${row.id}`, { method: 'DELETE' })
-    MessagePlugin.success('删除成功')
+    ElMessage.success('删除成功')
     fetchData()
   } catch {
-    MessagePlugin.error('删除失败')
+    ElMessage.error('删除失败')
   }
 }
 
 async function handleBatchDelete() {
-  MessagePlugin.success('批量删除成功')
+  ElMessage.success('批量删除成功')
   selectedRowKeys.value = []
   fetchData()
 }
@@ -196,9 +196,9 @@ async function handleResetPwd(row: Record<string, unknown>) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: row.id, password: 'admin123' }),
     })
-    MessagePlugin.success('密码已重置为 admin123')
+    ElMessage.success('密码已重置为 admin123')
   } catch {
-    MessagePlugin.error('重置密码失败')
+    ElMessage.error('重置密码失败')
   }
 }
 
@@ -209,10 +209,10 @@ async function handleStatusChange(row: Record<string, unknown>, enabled: boolean
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: row.id, status: enabled ? 0 : 1 }),
     })
-    MessagePlugin.success('状态修改成功')
+    ElMessage.success('状态修改成功')
     fetchData()
   } catch {
-    MessagePlugin.error('状态修改失败')
+    ElMessage.error('状态修改失败')
   }
 }
 

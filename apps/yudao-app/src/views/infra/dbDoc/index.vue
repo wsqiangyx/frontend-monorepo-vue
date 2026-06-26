@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="数据库文档">
     <t-card>
       <t-alert theme="info" class="mb-4">
@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'InfraDbDoc' })
@@ -85,7 +85,7 @@ async function fetchData() {
     const json = await res.json()
     if (json.success) tableData.value = json.data ?? []
   } catch {
-    MessagePlugin.error('加载数据库文档失败')
+    ElMessage.error('加载数据库文档失败')
   } finally {
     loading.value = false
   }

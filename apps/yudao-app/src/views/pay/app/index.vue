@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="支付应用">
     <t-card>
       <t-space class="mb-4">
@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'PayApp' })
@@ -78,7 +78,7 @@ async function fetchData() {
     const res = await fetch('/api/pay/app/page?pageNo=1&pageSize=50')
     const json = await res.json()
     if (json.success) tableData.value = json.data.items ?? []
-  } catch { MessagePlugin.error('加载失败') } finally { loading.value = false }
+  } catch { ElMessage.error('加载失败') } finally { loading.value = false }
 }
 
 function handleAdd() {
@@ -94,7 +94,7 @@ function handleEdit(row: Record<string, unknown>) {
 }
 
 function handleChannel(row: Record<string, unknown>) {
-  MessagePlugin.info('渠道配置功能：' + row.id)
+  ElMessage.info('渠道配置功能：' + row.id)
 }
 
 async function handleSubmit() {
@@ -102,14 +102,14 @@ async function handleSubmit() {
     const method = formData.value.id ? 'PUT' : 'POST'
     const url = formData.value.id ? '/api/pay/app/update' : '/api/pay/app/create'
     await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData.value) })
-    MessagePlugin.success('保存成功')
+    ElMessage.success('保存成功')
     formVisible.value = false
     fetchData()
-  } catch { MessagePlugin.error('保存失败') }
+  } catch { ElMessage.error('保存失败') }
 }
 
 async function handleDelete(row: Record<string, unknown>) {
-  try { await fetch(`/api/pay/app/delete?id=${row.id}`, { method: 'DELETE' }); MessagePlugin.success('删除成功'); fetchData() } catch { MessagePlugin.error('删除失败') }
+  try { await fetch(`/api/pay/app/delete?id=${row.id}`, { method: 'DELETE' }); ElMessage.success('删除成功'); fetchData() } catch { ElMessage.error('删除失败') }
 }
 
 onMounted(fetchData)

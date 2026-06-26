@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="我的待办">
     <t-card>
       <!-- 搜索栏 -->
@@ -77,7 +77,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'BpmTodoTask' })
@@ -125,7 +125,7 @@ async function fetchData() {
       pagination.total = json.data.total ?? 0
     }
   } catch {
-    MessagePlugin.error('加载待办列表失败')
+    ElMessage.error('加载待办列表失败')
   } finally {
     loading.value = false
   }
@@ -173,11 +173,11 @@ async function handleAuditSubmit() {
       body.targetUserId = targetUserId
     }
     await fetch(url, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
-    MessagePlugin.success('操作成功')
+    ElMessage.success('操作成功')
     auditVisible.value = false
     fetchData()
   } catch {
-    MessagePlugin.error('操作失败')
+    ElMessage.error('操作失败')
   }
 }
 

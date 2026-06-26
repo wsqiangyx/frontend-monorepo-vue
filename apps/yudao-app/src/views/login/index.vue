@@ -89,8 +89,8 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import type { FormInstanceFunctions } from 'tdesign-vue-next'
-import { MessagePlugin } from 'tdesign-vue-next'
+import type { FormInstance } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores/user'
 
 defineOptions({ name: 'LoginPage' })
@@ -99,7 +99,7 @@ const VITE_APP_TITLE = import.meta.env.VITE_APP_TITLE
 
 const router = useRouter()
 const userStore = useUserStore()
-const formRef = ref<FormInstanceFunctions>()
+const formRef = ref<FormInstance>()
 const loading = ref(false)
 const showPassword = ref(false)
 const rememberMe = ref(true)
@@ -145,10 +145,10 @@ async function handleLogin({ validateResult }: { validateResult: boolean }) {
       localStorage.removeItem('login_remember')
     }
 
-    MessagePlugin.success('登录成功')
+    ElMessage.success('登录成功')
     router.push('/')
   } catch {
-    MessagePlugin.error('登录失败')
+    ElMessage.error('登录失败')
   } finally {
     loading.value = false
   }

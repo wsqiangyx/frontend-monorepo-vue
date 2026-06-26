@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="文件配置">
     <t-card>
       <t-space class="mb-4">
@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'InfraFileConfig' })
@@ -98,7 +98,7 @@ async function fetchData() {
       pagination.total = json.data.total ?? 0
     }
   } catch {
-    MessagePlugin.error('加载配置列表失败')
+    ElMessage.error('加载配置列表失败')
   } finally {
     loading.value = false
   }
@@ -127,31 +127,31 @@ async function handleSubmit() {
     const method = formData.value.id ? 'PUT' : 'POST'
     const url = formData.value.id ? '/api/infra/file-config/update' : '/api/infra/file-config/create'
     await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData.value) })
-    MessagePlugin.success('保存成功')
+    ElMessage.success('保存成功')
     formVisible.value = false
     fetchData()
   } catch {
-    MessagePlugin.error('保存失败')
+    ElMessage.error('保存失败')
   }
 }
 
 async function handleSetMaster(row: Record<string, unknown>) {
   try {
     await fetch(`/api/infra/file-config/update-master?id=${row.id}`, { method: 'PUT' })
-    MessagePlugin.success('设置成功')
+    ElMessage.success('设置成功')
     fetchData()
   } catch {
-    MessagePlugin.error('设置失败')
+    ElMessage.error('设置失败')
   }
 }
 
 async function handleDelete(row: Record<string, unknown>) {
   try {
     await fetch(`/api/infra/file-config/delete?id=${row.id}`, { method: 'DELETE' })
-    MessagePlugin.success('删除成功')
+    ElMessage.success('删除成功')
     fetchData()
   } catch {
-    MessagePlugin.error('删除失败')
+    ElMessage.error('删除失败')
   }
 }
 

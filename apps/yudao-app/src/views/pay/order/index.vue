@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="支付订单">
     <t-card>
       <t-space class="mb-4">
@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'PayOrder' })
@@ -61,11 +61,11 @@ async function fetchData() {
     const res = await fetch(`/api/pay/order/page?${params}`)
     const json = await res.json()
     if (json.success) tableData.value = json.data.items ?? []
-  } catch { MessagePlugin.error('加载失败') } finally { loading.value = false }
+  } catch { ElMessage.error('加载失败') } finally { loading.value = false }
 }
 
 function handleDetail(row: Record<string, unknown>) {
-  MessagePlugin.info('订单详情：' + row.merchantOrderId)
+  ElMessage.info('订单详情：' + row.merchantOrderId)
 }
 
 onMounted(fetchData)

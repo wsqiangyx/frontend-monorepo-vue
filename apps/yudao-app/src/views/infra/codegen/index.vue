@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="代码生成">
     <t-card>
       <!-- 搜索栏 -->
@@ -93,7 +93,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 import ImportTable from './components/ImportTable.vue'
 import PreviewCode from './components/PreviewCode.vue'
@@ -148,7 +148,7 @@ async function fetchData() {
       pagination.total = json.data.total ?? 0
     }
   } catch {
-    MessagePlugin.error('加载列表失败')
+    ElMessage.error('加载列表失败')
   } finally {
     loading.value = false
   }
@@ -194,46 +194,46 @@ function handleEdit(row: Record<string, unknown>) {
 async function handleSubmit() {
   try {
     await fetch('/api/infra/codegen/update', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData.value) })
-    MessagePlugin.success('保存成功')
+    ElMessage.success('保存成功')
     formVisible.value = false
     fetchData()
   } catch {
-    MessagePlugin.error('保存失败')
+    ElMessage.error('保存失败')
   }
 }
 
 async function handleDelete(row: Record<string, unknown>) {
   try {
     await fetch(`/api/infra/codegen/delete?tableId=${row.id}`, { method: 'DELETE' })
-    MessagePlugin.success('删除成功')
+    ElMessage.success('删除成功')
     fetchData()
   } catch {
-    MessagePlugin.error('删除失败')
+    ElMessage.error('删除失败')
   }
 }
 
 async function handleBatchDelete() {
   try {
     await fetch(`/api/infra/codegen/delete-list?tableIds=${checkedIds.value.join(',')}`, { method: 'DELETE' })
-    MessagePlugin.success('批量删除成功')
+    ElMessage.success('批量删除成功')
     checkedIds.value = []
     fetchData()
   } catch {
-    MessagePlugin.error('批量删除失败')
+    ElMessage.error('批量删除失败')
   }
 }
 
 async function handleSyncDB(row: Record<string, unknown>) {
   try {
     await fetch(`/api/infra/codegen/sync-from-db?tableId=${row.id}`, { method: 'PUT' })
-    MessagePlugin.success('同步成功')
+    ElMessage.success('同步成功')
   } catch {
-    MessagePlugin.error('同步失败')
+    ElMessage.error('同步失败')
   }
 }
 
 async function handleGenCode(row: Record<string, unknown>) {
-  MessagePlugin.success('代码生成成功（Mock）')
+  ElMessage.success('代码生成成功（Mock）')
 }
 
 onMounted(fetchData)

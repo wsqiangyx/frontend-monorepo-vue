@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="菜单管理">
     <t-card>
       <t-space class="mb-4">
@@ -70,7 +70,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'SystemMenu' })
@@ -137,14 +137,14 @@ async function handleSubmit() {
   const url = isEdit.value ? '/api/system/menu/update' : '/api/system/menu/create'
   const method = isEdit.value ? 'PUT' : 'POST'
   await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) })
-  MessagePlugin.success(isEdit.value ? '修改成功' : '新增成功')
+  ElMessage.success(isEdit.value ? '修改成功' : '新增成功')
   dialogVisible.value = false
   fetchData()
 }
 
 async function handleDelete(row: Record<string, unknown>) {
   await fetch(`/api/system/menu/delete?id=${row.id}`, { method: 'DELETE' })
-  MessagePlugin.success('删除成功')
+  ElMessage.success('删除成功')
   fetchData()
 }
 

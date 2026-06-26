@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <PageContainer title="流程表单">
     <t-card>
       <t-space class="mb-4">
@@ -74,7 +74,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { MessagePlugin } from 'tdesign-vue-next'
+import { ElMessage } from 'element-plus'
 import { PageContainer } from '@repo/shared-ui'
 
 defineOptions({ name: 'BpmForm' })
@@ -105,7 +105,7 @@ async function fetchData() {
       tableData.value = json.data.items ?? []
     }
   } catch {
-    MessagePlugin.error('加载表单列表失败')
+    ElMessage.error('加载表单列表失败')
   } finally {
     loading.value = false
   }
@@ -134,21 +134,21 @@ async function handleSubmit() {
     const method = submitData.id ? 'PUT' : 'POST'
     const url = submitData.id ? '/api/bpm/form/update' : '/api/bpm/form/create'
     await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(submitData) })
-    MessagePlugin.success('保存成功')
+    ElMessage.success('保存成功')
     formVisible.value = false
     fetchData()
   } catch {
-    MessagePlugin.error('保存失败')
+    ElMessage.error('保存失败')
   }
 }
 
 async function handleDelete(row: Record<string, unknown>) {
   try {
     await fetch(`/api/bpm/form/delete?id=${row.id}`, { method: 'DELETE' })
-    MessagePlugin.success('删除成功')
+    ElMessage.success('删除成功')
     fetchData()
   } catch {
-    MessagePlugin.error('删除失败')
+    ElMessage.error('删除失败')
   }
 }
 
