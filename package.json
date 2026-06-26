@@ -30,11 +30,6 @@
     "test:coverage": "pnpm --filter @repo/shared-utils test:coverage && pnpm --filter @repo/shared-i18n test:coverage && pnpm --filter @repo/shared-service test:coverage && pnpm --filter @repo/design-tokens test:coverage && pnpm --filter @repo/shared-ui test:coverage && pnpm --filter @repo/shared-workflow test:coverage && pnpm --filter @repo/vue3-app test:coverage",
     "prepare": "husky"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "msw"
-    ]
-  },
   "devDependencies": {
     "@commitlint/cli": "20.5.2",
     "@commitlint/config-conventional": "20.5.0",

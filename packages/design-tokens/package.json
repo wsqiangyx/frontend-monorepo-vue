@@ -13,6 +13,9 @@
     "./tokens.css": {
       "default": "./dist/tokens.css"
     },
+    "./tailwind-theme": {
+      "default": "./dist/tailwind-theme.css"
+    },
     "./css": {
       "types": "./dist/to-css.d.ts",
       "default": "./dist/to-css.js"
@@ -23,7 +26,7 @@
     }
   },
   "scripts": {
-    "build": "node -e \"import{rmSync}from'node:fs';rmSync('dist',{recursive:true,force:true});rmSync('tsconfig.build.tsbuildinfo',{force:true});\" && tsc -p tsconfig.build.json && node -e \"import{cpSync,mkdirSync}from'node:fs';mkdirSync('dist',{recursive:true});cpSync('src/tokens.css','dist/tokens.css');\"",
+    "build": "node -e \"import{rmSync}from'node:fs';rmSync('dist',{recursive:true,force:true});rmSync('tsconfig.build.tsbuildinfo',{force:true});\" && tsc -p tsconfig.build.json && node -e \"import{cpSync,mkdirSync}from'node:fs';mkdirSync('dist',{recursive:true});cpSync('src/tokens.css','dist/tokens.css');cpSync('src/tailwind-theme.css','dist/tailwind-theme.css');\"",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "node ../../scripts/vitest.cjs run",
     "test:watch": "node ../../scripts/vitest.cjs",
