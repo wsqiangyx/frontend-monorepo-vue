@@ -10,6 +10,7 @@
 - 总体设计：[`docs/总体设计/Vue3 中后台前端平台 Monorepo 架构设计方案.md`](./docs/总体设计/Vue3%20中后台前端平台%20Monorepo%20架构设计方案.md)
 - 初始化与裁剪手册：[`docs/教程/模板初始化与裁剪指南.md`](./docs/教程/模板初始化与裁剪指南.md)
 - 维护约束：[`AGENTS.md`](./AGENTS.md)
+- AI 编码代理指引：[`CLAUDE.md`](./CLAUDE.md)
 
 ## 当前定位
 

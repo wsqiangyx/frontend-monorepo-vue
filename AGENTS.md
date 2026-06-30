@@ -5,6 +5,7 @@
 ## 文档边界
 
 - 根 `README.md`：模板消费者使用主文档
+- 根 `CLAUDE.md`：AI 编码代理（Claude Code）指引入口
 - 根 `AGENTS.md`：维护约束主文档
 - 根 `TEMPLATE.md`：模板 Day 0 检查清单
 - `docs/总体设计/Vue3 中后台前端平台 Monorepo 架构设计方案.md`：唯一上游概要设计主文档
