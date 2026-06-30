@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "catalog:",
-    "@types/node": "24.12.2",
+    "@types/node": "24.13.2",
     "@vue/test-utils": "catalog:",
     "msw": "catalog:",
     "vite": "catalog:",
